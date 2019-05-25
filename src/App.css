@@ -1,26 +1,128 @@
+* {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
+  background: #282c34;
+  user-select: none;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
+.app-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  text-transform: uppercase;
+  border-bottom: 1px solid white;
 }
 
-.App-link {
-  color: #61dafb;
+.app-header h1 { margin: 10px auto; }
+
+#actions {
+  display: flex;
+  align-content: center;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  color: white;
+  box-sizing: border-box;
+  margin: 20px auto;
+}
+
+#actions div {
+  width: 40vw;
+  height: 20vh;
+  line-height: 20vh;
+  box-sizing: border-box;
+  margin: 5px auto;
+  background: green;
+  border-radius: 20px;
+}
+
+#actions div:hover {
+  background: rgb(82, 148, 16);
+  cursor: pointer;
+}
+
+#currentGame {
+  /* height: 0vh; */
+  /* line-height: 20vh; */
+  padding: 10px 0;
+  color: white;
+  background: blue;
+}
+
+#currentGame .close {
+  display: inline-block;
+  position: relative;
+  top: -8vh;
+  left: 60%;
+}
+
+#game-players {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.player {
+  background: grey;
+  width: 30%;
+  padding-bottom: 30px;
+}
+
+#login {
+  width: 50%;
+  height: 50vh;
+  margin: 25vh auto;
+  background: rgb(41, 146, 156);
+  border-radius: 20px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-content: center;
+}
+
+#login input {
+  margin: 10px 0px;
+}
+
+#login button:hover {
+  background: orange;
+  cursor: pointer;
+}
+
+#login button {
+  background: yellow;
+  margin: 10px 0px;
+  border-radius: 20px;
+}
+
+#score-controller {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  background: purple;
+  align-content: center;
+}
+
+.score-button {
+  width: 50%;
+  padding: 20px;
+  border-radius: 20px;
+  background: rgb(0, 72, 255);
+  margin: 2px auto;
+  font-size: 2em;
+}
+
+.score-button:hover {
+  background: blue;
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {
