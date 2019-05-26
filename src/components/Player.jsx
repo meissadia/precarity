@@ -19,6 +19,10 @@ export class PlayerController {
         return this._score;
     };
 
+    get ref() {
+        return `/users/${this.id}`
+    }
+
     toObj = () => ({
         id: this.id,
         name: this.name,

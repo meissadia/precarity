@@ -2,17 +2,50 @@ import React from 'react';
 import Player, { PlayerController } from './Player';
 import { ScoreController } from './ScoreController';
 
+/*
+
+Game {
+    id: string,
+    name: string,
+    players: [
+        references
+    ],
+    double: boolean,
+    episode: string,
+}
+
+In the Game
+
+onMount
+- register db.ref().on() event listeners on each Game.players ref
+- register db.ref().on() event listeners for Game ref
+
+onUnmount
+- unregister db.ref().on() event listeners on each Game.players ref
+- unregister db.ref().on() event listeners for Game ref
+
+*/
+
 export class GameController {
     constructor(args = {}) {
         this.id = args.id;
         this.name = args.name || '<GameName>';
         this.players = args.players || [new PlayerController({}), new PlayerController({}), new PlayerController({})];
         this.episode = args.episode || '<Episode>';
+        this.double = args.double;
     }
 
     static new(args) {
         return (new GameController(args));
     }
+
+    toObj = () => ({
+        id: this.id,
+        name: this.name,
+        players: this.players.map(p => p.ref),
+        double: this.double,
+        episode: this.episode,
+    })
 
     setName = name => this.name = name;
     getName = this.name;

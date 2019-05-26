@@ -5,6 +5,7 @@ import { PlayerController } from './components/Player';
 import { Login } from './components/Login';
 import { firebase } from './firebase';
 import { auth, db } from './firebase/index';
+import { isEqual, get } from 'lodash';
 
 const Actions = ({ newGame }) => (
   <div id='actions'>
@@ -28,12 +29,18 @@ class App extends React.Component {
     this.onAuthUserChange(); // Firebase Log-in/out
   }
 
-  componentDidUpdate() {
-    const { player, authUser } = this.state;
+  componentDidUpdate(_prevProps, prevState) {
+    const { authUser } = this.state;
 
-    if (authUser && !player) { // Load player data
+    if (!authUser) return true;
+
+    const prevUid = get(prevState, 'authUser.uid');
+
+    if (!isEqual(prevUid, authUser.uid)) {
+      // Load player data
       db.doGetUser(authUser.uid)
         .then(doc => {
+          console.log('getting user info');
           let { player } = doc.data();
 
           // Rehydrate Player
@@ -64,6 +71,15 @@ class App extends React.Component {
     };
   };
 
+  signOut = () => {
+    auth.doSignOut();
+    this.setState({
+      game: null,
+      player: null,
+      authUser: null,
+    })
+  }
+
   render() {
     const { player, game, authUser } = this.state;
     const { newGame, setState } = this;
@@ -74,7 +90,7 @@ class App extends React.Component {
       <div className="App">
         <header className="app-header">
           <h1>Precarity</h1>
-          {authUser && <div id='logout-button' onClick={() => auth.doSignOut()}>Logout</div>}
+          {authUser && <div id='logout-button' onClick={this.signOut}>Logout</div>}
         </header>
         <Actions newGame={newGame} />
         <Game
