@@ -26,9 +26,13 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.onAuthUserChange(); // Firebase Log-in/out
+    this.authClearListener = this.onAuthUserChange(); // Firebase Log-in/out
   }
 
+  componentWillUnmount() {
+    this.authClearListener();
+  }
+  
   componentDidUpdate(_prevProps, prevState) {
     const { authUser } = this.state;
 
@@ -54,8 +58,8 @@ class App extends React.Component {
   }
 
   onAuthUserChange() {
-    firebase.auth.onAuthStateChanged(authUser => {
-      authUser
+    return firebase.auth.onAuthStateChanged(authUser => {
+      authUser && this.mounted
         ? this.setState({ authUser })
         : this.setState({ authUser: null });
     });
@@ -84,7 +88,7 @@ class App extends React.Component {
     const { player, game, authUser } = this.state;
     const { newGame, setState } = this;
 
-    if (!authUser) return <Login update={setState} />
+    if (!authUser) return <Login update={setState} />;
 
     return (
       <div className="App">
