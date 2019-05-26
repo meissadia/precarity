@@ -18,6 +18,12 @@ export class PlayerController {
     get score() {
         return this._score;
     };
+
+    toObj = () => ({
+        id: this.id,
+        name: this.name,
+        score: this.score,
+    })
 };
 
 export const Player = ({ player }) => {

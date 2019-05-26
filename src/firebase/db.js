@@ -1,30 +1,16 @@
 import { db } from './firebase';
 
-// User API
+/* Firebase Users Collection API */
 
-export const doCreateUser = (id, email) =>
+export const doCreateUser = (id, email, extraState = {}) =>
   db.collection("users").doc(id).set({
-    id,
-    email
-  })
+    profile: {
+      id,
+      email,
+      name: email,
+    },
+    ...extraState,
+  });
 
-// db.ref(`users/${id}`).set({
-//   email,
-// });
 
-// export const doCreateUser = (id, email) =>
-//   db.ref(`users/${id}`).set({
-//     email,
-//   });
-
-// export const onceGetUsers = () =>
-//   db.ref('users').once('value');
-
-// export const doUpdateUser = (id, state) =>
-//   db.ref(`users/${id}`).update({
-//     state,
-//   });
-
-export const doGetUser = (id) =>
-  db.collection("users").doc(id).get()
-  // db.ref(`users/${id}`).once('value');
+export const doGetUser = id => db.collection("users").doc(id).get();

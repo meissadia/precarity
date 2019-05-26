@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
 import Game, { GameController } from './components/Game';
+import { PlayerController } from './components/Player';
 import { Login } from './components/Login';
 import { firebase } from './firebase';
-import { auth } from './firebase/index';
+import { auth, db } from './firebase/index';
 
 const Actions = ({ newGame }) => (
   <div id='actions'>
@@ -24,7 +25,25 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.onAuthUserChange();      // Firebase Log-in/out
+    this.onAuthUserChange(); // Firebase Log-in/out
+  }
+
+  componentDidUpdate() {
+    const { player, authUser } = this.state;
+
+    if (authUser && !player) { // Load player data
+      db.doGetUser(authUser.uid)
+        .then(doc => {
+          let { player } = doc.data();
+
+          // Rehydrate Player
+          if (typeof player === 'object')
+            player = new PlayerController(player);
+
+          this.setState({ player });
+        })
+        .catch(({ message }) => console.log(message));
+    }
   }
 
   onAuthUserChange() {
@@ -37,28 +56,31 @@ class App extends React.Component {
 
   newGame = () => {
     const player = this.state.player;
-    const game = new GameController();
-    player.reset();
-    game.addPlayer(player);
-    this.setState({ game });
+    if (player) {
+      const game = new GameController();
+      player.reset();
+      game.addPlayer(player);
+      this.setState({ game });
+    };
   };
 
   render() {
     const { player, game, authUser } = this.state;
+    const { newGame, setState } = this;
 
-    if (!authUser) return <Login update={this.setState} />
+    if (!authUser) return <Login update={setState} />
 
     return (
       <div className="App">
         <header className="app-header">
           <h1>Precarity</h1>
-          {this.state.authUser && <div id='logout-button' onClick={() => auth.doSignOut()}>Logout</div>}
+          {authUser && <div id='logout-button' onClick={() => auth.doSignOut()}>Logout</div>}
         </header>
-        <Actions newGame={this.newGame} />
+        <Actions newGame={newGame} />
         <Game
           game={game}
           player={player}
-          updater={this.setState}
+          updater={setState}
         />
       </div>
     );

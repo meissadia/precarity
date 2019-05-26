@@ -1,42 +1,68 @@
 import React, { useState } from 'react';
-import { PlayerController } from './Player';
 import { auth, db } from '../firebase/index';
+import { PlayerController } from './Player';
+
 
 export const Login = props => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
 
+    /**
+     * State Update Function
+     * @param {Function} callback Apply callback to event.target.value
+     * @param {Event} event 
+     */
     const change = (callback, event) => callback(event.target.value);
 
-    const onSuccess = (doc) => {
-        // console.log('doc data');
-        // console.log(doc.data());
-    }
-
-    function onSignIn(event) {
-        console.log('signin');
-
-        auth.doSignInWithEmailAndPassword(name, password)
-            .then(userAccount => onSuccess(userAccount))
-            .catch(error => setError(error.message));
-
-        event.preventDefault();
-    };
-
     const onSignUp = event => {
-        auth.doCreateUserWithEmailAndPassword(name, password)
+        auth.createEmailUser(name, password)
             .then(authUser => {
-                // Create a user in your own accessible Firebase Database too
-                db.doCreateUser(authUser.user.uid, name);
+                // Create a user in your own accessible Firebase Database to store associated State
+                const newPlayer = new PlayerController({
+                    id: authUser.user.uid,
+                    name
+                });
+
+                db.doCreateUser(
+                    authUser.user.uid,
+                    name,
+                    { player: newPlayer.toObj() }
+                );
+
                 db.doGetUser(authUser.user.uid)
-                    .then(doc => onSuccess(doc))
+                    .then(doc => {
+                        let { player } = doc.data();
+
+                        // Rehydrate Player
+                        if (typeof player === 'object')
+                            player = new PlayerController(player);
+
+                        props.update({ player });
+                    })
                     .catch(({ message }) => console.log(message));
             })
             .catch(error => setError(error.message));
 
         event.preventDefault();
     }
+
+    const onSuccess = (doc) => {
+        // console.log('doc data');
+        // console.log(doc.data());
+    };
+
+    function onSignIn(event) {
+        console.log('signin');
+
+        auth.signinEmailUser(name, password)
+            .then(userAccount => onSuccess(userAccount))
+            .catch(error => setError(error.message));
+
+        event.preventDefault();
+    };
+
+
 
     return (
         <form id='login'>
