@@ -10,6 +10,8 @@ export class PlayerController {
     addScore = (val) => this._score += val;
     subScore = (val) => this._score -= val;
 
+    reset = () => this._score = 0;
+
     get name() {
         return this._name;
     };

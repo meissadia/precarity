@@ -1,10 +1,9 @@
-* {
-  box-sizing: border-box;
+body {
+  background: #282c34;
 }
 
 .App {
   text-align: center;
-  background: #282c34;
   user-select: none;
 }
 
@@ -88,6 +87,11 @@
   align-content: center;
 }
 
+#login h2 {
+  text-transform: uppercase;
+  color: white;
+}
+
 #login input {
   margin: 10px 0px;
 }
@@ -98,9 +102,29 @@
 }
 
 #login button {
-  background: yellow;
+  transition: all 350ms;
   margin: 10px 0px;
   border-radius: 20px;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+#login button.login { background: #c1ae24; }
+#login button.signup { background: #c19c24; }
+
+#login button:hover {
+  background: green;
+} 
+
+#logout-button:hover {
+  background: pink;
+  border-radius: 15px;
+}
+
+#logout-button {
+  padding: 10px;
+  cursor: pointer;
 }
 
 #score-controller {
