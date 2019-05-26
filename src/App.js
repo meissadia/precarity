@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Game, { GameController } from './components/Game';
+import Game, { FBGame } from './components/Game';
 import { PlayerController } from './components/Player';
 import { Login } from './components/Login';
 import { firebase } from './firebase';
@@ -31,8 +31,9 @@ class App extends React.Component {
 
   componentWillUnmount() {
     this.authClearListener();
+    this.fbgame.cleanup();
   }
-  
+
   componentDidUpdate(_prevProps, prevState) {
     const { authUser } = this.state;
 
@@ -41,13 +42,12 @@ class App extends React.Component {
     const prevUid = get(prevState, 'authUser.uid');
 
     if (!isEqual(prevUid, authUser.uid)) {
-      // Load player data
+      /* Load player data */
       db.doGetUser(authUser.uid)
         .then(doc => {
-          console.log('getting user info');
           let { player } = doc.data();
 
-          // Rehydrate Player
+          /* Rehydrate Player */
           if (typeof player === 'object')
             player = new PlayerController(player);
 
@@ -59,20 +59,18 @@ class App extends React.Component {
 
   onAuthUserChange() {
     return firebase.auth.onAuthStateChanged(authUser => {
-      authUser && this.mounted
+      authUser
         ? this.setState({ authUser })
         : this.setState({ authUser: null });
     });
   }
 
+  /**
+   * ! Side effect: Updates App State
+   */
   newGame = () => {
-    const player = this.state.player;
-    if (player) {
-      const game = new GameController();
-      player.reset();
-      game.addPlayer(player);
-      this.setState({ game });
-    };
+    this.fbgame = new FBGame({ update: this.setState });
+    this.fbgame.newGame({ players: [this.state.player.id] });
   };
 
   signOut = () => {
@@ -89,7 +87,6 @@ class App extends React.Component {
     const { newGame, setState } = this;
 
     if (!authUser) return <Login update={setState} />;
-
     return (
       <div className="App">
         <header className="app-header">

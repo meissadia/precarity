@@ -14,3 +14,11 @@ export const doCreateUser = (id, email, extraState = {}) =>
 
 
 export const doGetUser = id => db.collection("users").doc(id).get();
+
+export const doCreateGame = args => (
+  db.collection("games").add({
+    players: args.players || [],
+    double: false,
+  })
+)
+

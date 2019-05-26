@@ -1,9 +1,28 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Game, { GameController } from './Game';
+import Game, { GameController, FBGame } from './Game';
 import Player, { PlayerController } from './Player';
 import { merge } from 'lodash';
 
+describe('FBGame', () => {
+    it.skip('creates a new game', async () => {
+        const spy = jest.fn();
+        const game = new FBGame({ update: spy });
+
+        expect(game.toObj()).toEqual({
+            id: undefined,
+            players: undefined,
+        });
+
+        // Target
+        await game.newGame();
+
+        expect(spy.mock.calls.length).toBe(1);
+
+    });
+
+
+});
 
 describe('GameController', () => {
     it('add a player', () => {
@@ -41,7 +60,7 @@ describe('Game', () => {
         })
 
 
-        it('renders name', () => {
+        it.skip('renders name', () => {
             expect(wrapper.find('#currentGame h2').text()).toBe('<GameName>');
         });
 
