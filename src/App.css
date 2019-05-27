@@ -133,6 +133,7 @@ body {
   justify-content: space-around;
   background: purple;
   align-content: center;
+  padding-bottom: 20px;
 }
 
 .score-button {
@@ -147,6 +148,10 @@ body {
 .score-button:hover {
   background: blue;
   cursor: pointer;
+}
+
+.score-button.reset:hover {
+  background: #c18f24;
 }
 
 @keyframes App-logo-spin {

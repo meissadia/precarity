@@ -19,13 +19,15 @@ export const ScoreButton = props => {
 
     return (
         <div
-            className='score-button'
+            className={['score-button', props.className].join(' ')}
             onClick={updateScore}
         >
-            {props.value}
+            {props.label || value}
         </div>
     );
-}
+};
+
+export const ResetButton = props => <ScoreButton {...props} />
 
 export const ScoreController = props => {
     const { player, game } = props;
@@ -46,6 +48,7 @@ export const ScoreController = props => {
                     value={val}
                 />
             )}
+            <ResetButton player={player} value={-player.score} label='Clear Score' className='reset' />
         </div>
     )
 };

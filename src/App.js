@@ -1,10 +1,9 @@
 import React from 'react';
 import './App.css';
 import Game, { FBGame } from './components/Game';
-import { PlayerController } from './components/Player';
 import { Login } from './components/Login';
 import { firebase } from './firebase';
-import { auth, db } from './firebase/index';
+import { auth } from './firebase/index';
 import { db as fdb } from './firebase/firebase';
 import { isEqual, get } from 'lodash';
 
