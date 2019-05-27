@@ -1,38 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Game, { GameController, FBGame } from './Game';
-import Player, { PlayerController } from './Player';
+import Game from './Game';
 import { merge } from 'lodash';
-
-describe('FBGame', () => {
-    it.skip('creates a new game', async () => {
-        const spy = jest.fn();
-        const game = new FBGame({ update: spy });
-
-        expect(game.toObj()).toEqual({
-            id: undefined,
-            players: undefined,
-        });
-
-        // Target
-        await game.newGame();
-
-        expect(spy.mock.calls.length).toBe(1);
-
-    });
-
-
-});
-
-describe('GameController', () => {
-    it('add a player', () => {
-        const p1 = new PlayerController({ id: 'p1', name: 'p1' });
-        const game = new GameController();
-        expect(game.playerCount()).toBe(0);
-        game.addPlayer(p1);
-        expect(game.playerCount()).toBe(1);
-    });
-});
 
 describe('Game', () => {
     let props = {};
@@ -52,7 +21,7 @@ describe('Game', () => {
         let wrapper;
 
         const withGameProps = {
-            game: new GameController(),
+            game: { id: 'game', players: [1, 2, 3] },
         };
 
         beforeEach(() => {
@@ -60,12 +29,16 @@ describe('Game', () => {
         })
 
 
-        it.skip('renders name', () => {
-            expect(wrapper.find('#currentGame h2').text()).toBe('<GameName>');
+        it('renders id', () => {
+            expect(wrapper.find('#currentGame h2').text()).toBe('game');
         });
 
         it('renders Players', () => {
             expect(wrapper.find('Player').length).toBe(3);
+        });
+
+        it('renders ScoreController', () => {
+            expect(wrapper.find('ScoreController').length).toBe(1);
         });
     });
 });
