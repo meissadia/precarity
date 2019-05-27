@@ -61,7 +61,7 @@ body {
   left: 60%;
 }
 
-#game-players {
+#scoreboard {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;

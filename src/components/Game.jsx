@@ -46,7 +46,10 @@ export class FBGame {
     }
 
     cleanup() {
-        this.closeGameListener && this.closeGameListener();
+        if (this.closeGameListener) {
+            this.closeGameListener();
+            this.closeGameListener = null;
+        }
     }
 }
 
@@ -55,8 +58,8 @@ export const Game = ({ game, player, updater }) => {
     if (!game) return null;
     return (
         <div id='currentGame'>
-            {/* <h2>{game.name}</h2> */}
-            <div id='game-players'>
+            <div id='scoreboard'>
+                {/* <h2>{game.name}</h2> */}
                 {game.players.map((player, idx) =>
                     <Player key={idx} player={player} />
                 )}
@@ -64,7 +67,6 @@ export const Game = ({ game, player, updater }) => {
             <ScoreController
                 player={player}
                 game={game}
-                updater={updater}
             />
         </div>
     )

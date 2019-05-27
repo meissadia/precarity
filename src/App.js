@@ -5,6 +5,7 @@ import { PlayerController } from './components/Player';
 import { Login } from './components/Login';
 import { firebase } from './firebase';
 import { auth, db } from './firebase/index';
+import { db as fdb } from './firebase/firebase';
 import { isEqual, get } from 'lodash';
 
 const Actions = ({ newGame }) => (
@@ -32,6 +33,10 @@ class App extends React.Component {
   componentWillUnmount() {
     this.authClearListener();
     this.fbgame.cleanup();
+    if (this.cancelUserListener) {
+      this.cancelUserListener();
+      this.cancelUserListener = null;
+    }
   }
 
   componentDidUpdate(_prevProps, prevState) {
@@ -43,17 +48,8 @@ class App extends React.Component {
 
     if (!isEqual(prevUid, authUser.uid)) {
       /* Load player data */
-      db.doGetUser(authUser.uid)
-        .then(doc => {
-          let { player } = doc.data();
-
-          /* Rehydrate Player */
-          if (typeof player === 'object')
-            player = new PlayerController(player);
-
-          this.setState({ player });
-        })
-        .catch(({ message }) => console.log(message));
+      this.cancelUserListener = fdb.collection('users').doc(authUser.uid)
+        .onSnapshot(snap => this.setState({ ...snap.data() }));
     }
   }
 
@@ -70,7 +66,7 @@ class App extends React.Component {
    */
   newGame = () => {
     this.fbgame = new FBGame({ update: this.setState });
-    this.fbgame.newGame({ players: [this.state.player.id] });
+    this.fbgame.newGame({ players: [this.state.authUser.uid] });
   };
 
   signOut = () => {

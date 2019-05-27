@@ -1,14 +1,21 @@
 import React from 'react';
+import { db } from '../firebase/firebase';
+
+const DEFAULT_SCORES = [200, 400, 600, 800, 1000];
 
 export const ScoreButton = props => {
-    const { player, game, updater } = props;
+    const { player, value } = props;
 
     const updateScore = () => {
-        player.addScore(props.value);
-        game.updatePlayer(player);
-        updater({ player });
-
-    };
+        const { id, name, score } = player;
+        db.collection("users").doc(id).update({
+            player: {
+                id,
+                name,
+                score: score + value,
+            }
+        }).catch(err => console.log('Failed to addScore', err))
+    }
 
     return (
         <div
@@ -21,27 +28,22 @@ export const ScoreButton = props => {
 }
 
 export const ScoreController = props => {
-    const { player, double, game, updater } = props;
+    const { player, game } = props;
 
     if (!player) return null;
 
-    const defaultValues = [200, 400, 600, 800, 1000];
-    let values = props.values || defaultValues;
-
-    if (double) values = values.map(x => x * 2);
-
-    // const updatePlayer = val => player.addScore(val);
+    let values = props.values || DEFAULT_SCORES;
+    if (game.double)
+        values = values.map(x => x * 2);
 
     return (
         <div id='score-controller'>
             <h2>Score: {player.score}</h2>
-            {values.map((val, idx) =>
+            {values.map(val =>
                 <ScoreButton
                     key={val}
                     player={player}
-                    game={game}
                     value={val}
-                    updater={updater}
                 />
             )}
         </div>

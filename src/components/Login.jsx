@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { auth, db } from '../firebase/index';
-import { PlayerController } from './Player';
-
 
 export const Login = props => {
     const [name, setName] = useState('');
@@ -19,28 +17,17 @@ export const Login = props => {
         auth.createEmailUser(name, password)
             .then(authUser => {
                 // Create a user in your own accessible Firebase Database to store associated State
-                const newPlayer = new PlayerController({
+                const newPlayer = {
                     id: authUser.user.uid,
-                    name
-                });
+                    name,
+                    score: 0,
+                }
 
                 db.doCreateUser(
                     authUser.user.uid,
                     name,
-                    { player: newPlayer.toObj() }
+                    { player: newPlayer }
                 );
-
-                db.doGetUser(authUser.user.uid)
-                    .then(doc => {
-                        let { player } = doc.data();
-
-                        // Rehydrate Player
-                        if (typeof player === 'object')
-                            player = new PlayerController(player);
-
-                        props.update({ player });
-                    })
-                    .catch(({ message }) => console.log(message));
             })
             .catch(error => setError(error.message));
 
