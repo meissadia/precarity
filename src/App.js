@@ -1,11 +1,15 @@
 import React from 'react';
-import './App.css';
-import Game, { FBGame } from './components/Game';
+import { get, isEqual } from 'lodash';
+
+import GameController from './controllers/GameController';
+import Game from './components/Game';
+
 import { Login } from './components/Login';
-import { firebase } from './firebase';
 import { auth } from './firebase/index';
 import { db as fdb } from './firebase/firebase';
-import { isEqual, get } from 'lodash';
+import { firebase } from './firebase';
+
+import './App.css';
 
 const Actions = ({ newGame, joinGame }) => (
   <div id='actions'>
@@ -23,7 +27,7 @@ class App extends React.Component {
       player: null,
       authUser: null,
     };
-    this.fbgame = new FBGame({ update: this.setState });
+    this.gameController = new GameController({ update: this.setState });
   };
 
   componentDidMount() {
@@ -32,7 +36,7 @@ class App extends React.Component {
 
   componentWillUnmount() {
     this.authClearListener();
-    this.fbgame.cleanup();
+    this.gameController.cleanup();
     if (this.cancelUserListener) {
       this.cancelUserListener();
       this.cancelUserListener = null;
@@ -65,12 +69,15 @@ class App extends React.Component {
    * ! Side effect: Updates App State
    */
   newGame = () => {
-    this.fbgame.newGame({ players: [this.state.authUser.uid] });
+    this.gameController.newGame({ players: [this.state.authUser.uid] });
   };
 
+  /**
+  * ! Side effect: Updates App State
+  */
   joinGame = () => {
     const input = window.prompt('Enter Game ID');
-    input && this.fbgame.joinGame(input, this.state.player.id);
+    input && this.gameController.joinGame(input, this.state.player.id);
   }
 
   signOut = () => {

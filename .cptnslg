@@ -1,0 +1,16 @@
+Use anchor tags to animate app?
+- https://scotch.io/tutorials/implementing-smooth-scrolling-in-react
+- https://www.npmjs.com/package/react-scrollable-anchor
+- Might make animation smoother
+- Set 'active' class based on url anchor param
+
+Allow anonymous user with link + pin #
+- Enter Display Name
+- Away they go....
+- Look at what Firebase's anonymous user is
+
+Clear state on Logout
+
+Refactor and beautify
+
+Save/rehydrate state with localStorage
