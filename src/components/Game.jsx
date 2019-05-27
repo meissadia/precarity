@@ -2,6 +2,7 @@ import React from 'react';
 import Player from './Player';
 import { ScoreController } from './ScoreController';
 import { db } from '../firebase/index';
+import { db as fdb } from '../firebase/firebase';
 
 export class PlayerFB {
     constructor(args) {
@@ -28,7 +29,10 @@ export class FBGame {
         players: this.players,
     })
 
+    /* Initiate and join a game */
     newGame(args) {
+        this.cleanup();
+
         this.closeGameListener =
             db.doCreateGame({ players: args.players })          // Create a new game in the DB
                 .then(docRef => {
@@ -39,12 +43,35 @@ export class FBGame {
 
                         // NOTE: 
                         //  Tried to resolve players here but led to glitchy behavior
-                        //  where app state was inconsistent.  
-                        //  Don't Do It.
+                        //  where app state was inconsistent and wouldn't update as expected.  
                     })
                 })
     }
 
+    /* Join an in-progress Game */
+    joinGame(gameId, playerId) {
+        this.cleanup();
+
+        // Add own ID to game's player list
+        fdb.collection('games').doc(gameId).get().then(doc => {
+            const data = doc.data();
+
+            if (!data.players.includes(playerId)) {
+                data.players.push(playerId);
+                fdb.collection('games').doc(gameId).update({ players: data.players })
+            }
+        });
+
+        // Subscribe to game updates
+        this.closeGameListener =
+            fdb.collection('games').doc(gameId).onSnapshot(doc => {
+                const game = { ...doc.data(), id: doc.id };
+                this.id = game.id;
+                this.update({ game });
+            });
+    }
+
+    /* Unregister Event Listeners */
     cleanup() {
         if (this.closeGameListener) {
             this.closeGameListener();
@@ -53,13 +80,15 @@ export class FBGame {
     }
 }
 
-
-export const Game = ({ game, player, updater }) => {
+/**
+ * Display Scoreboard and Score controls
+ */
+export const Game = ({ game, player }) => {
     if (!game) return null;
     return (
         <div id='currentGame'>
+            <h2>{game.id}</h2>
             <div id='scoreboard'>
-                {/* <h2>{game.name}</h2> */}
                 {game.players.map((player, idx) =>
                     <Player key={idx} player={player} />
                 )}
@@ -73,45 +102,3 @@ export const Game = ({ game, player, updater }) => {
 }
 
 export default Game;
-
-// export class GameController {
-//     constructor(args = {}) {
-//         this.id = args.id;
-//         this.name = args.name || '<GameName>';
-//         this.players = args.players || [new PlayerController({}), new PlayerController({}), new PlayerController({})];
-//         this.episode = args.episode || '<Episode>';
-//         this.double = args.double;
-//     }
-
-//     static new(args) {
-//         return (new GameController(args));
-//     }
-
-//     toObj = () => ({
-//         id: this.id,
-//         name: this.name,
-//         players: this.players.map(p => p.ref),
-//         double: this.double,
-//         episode: this.episode,
-//     })
-
-//     setName = name => this.name = name;
-//     getName = this.name;
-
-//     status = () => 'in progress';
-//     playerCount = () => this.players.filter(plyr => plyr.id !== undefined).length;
-
-//     addPlayer = player => {
-//         const spot = this.players.findIndex(x => x.id === undefined);
-//         if (spot > -1) {
-//             this.players[spot] = player;
-//             return true;
-//         }
-//         return false;
-//     }
-
-//     updatePlayer = player => {
-//         const spot = this.players.findIndex(x => x.id === player.id);
-//         if (spot > -1) this.players[spot] = player;
-//     }
-// };

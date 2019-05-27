@@ -8,10 +8,10 @@ import { auth, db } from './firebase/index';
 import { db as fdb } from './firebase/firebase';
 import { isEqual, get } from 'lodash';
 
-const Actions = ({ newGame }) => (
+const Actions = ({ newGame, joinGame }) => (
   <div id='actions'>
     <div className='new' onClick={newGame}>New Game</div>
-    <div className='join'>Join Game</div>
+    <div className='join' onClick={joinGame}>Join Game</div>
   </div>
 )
 
@@ -24,6 +24,7 @@ class App extends React.Component {
       player: null,
       authUser: null,
     };
+    this.fbgame = new FBGame({ update: this.setState });
   };
 
   componentDidMount() {
@@ -65,9 +66,13 @@ class App extends React.Component {
    * ! Side effect: Updates App State
    */
   newGame = () => {
-    this.fbgame = new FBGame({ update: this.setState });
     this.fbgame.newGame({ players: [this.state.authUser.uid] });
   };
+
+  joinGame = () => {
+    const input = window.prompt('Enter Game ID');
+    input && this.fbgame.joinGame(input, this.state.player.id);
+  }
 
   signOut = () => {
     auth.doSignOut();
@@ -80,16 +85,16 @@ class App extends React.Component {
 
   render() {
     const { player, game, authUser } = this.state;
-    const { newGame, setState } = this;
+    const { newGame, joinGame, setState } = this;
 
     if (!authUser) return <Login update={setState} />;
     return (
       <div className="App">
         <header className="app-header">
           <h1>Precarity</h1>
-          {authUser && <div id='logout-button' onClick={this.signOut}>Logout</div>}
+          {authUser && <div id='logout-button' onClick={this.signOut}>Logout {this.state.authUser.email}</div>}
         </header>
-        <Actions newGame={newGame} />
+        <Actions newGame={newGame} joinGame={joinGame} />
         <Game
           game={game}
           player={player}
