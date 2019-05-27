@@ -1,5 +1,8 @@
 body {
   background: #282c34;
+  width: 100%;
+  height: 100vh;
+
 }
 
 .App {
@@ -9,16 +12,38 @@ body {
 
 .app-header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row nowrap;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
   text-transform: uppercase;
   border-bottom: 1px solid white;
 }
 
-.app-header h1 { margin: 10px auto; }
+.app-header .title { 
+  margin-left: 5%;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+
+.app-header .title { 
+  margin-left: 5%;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+
+.app-header .logout .button:hover {
+  color: #c18f24;
+  border-radius: 15px;
+}
+
+.app-header .logout {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-right: 5%;
+  cursor: pointer;
+}
 
 #actions {
   display: flex;
@@ -102,15 +127,37 @@ body {
 }
 
 #login {
-  width: 50%;
-  height: 50vh;
-  margin: 25vh auto;
+  width: 100%;
+  height: 80vh;
+  margin: 5vh auto;
   background: rgb(41, 146, 156);
   border-radius: 20px;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   align-content: center;
+  text-align: center;
+}
+
+#login input {
+  padding-left: 5px;
+  box-sizing: border-box;
+}
+
+#login input, #login button {
+  width: 60%;
+  margin: 10px auto;
+  border-radius: 20px;
+}
+
+@media screen and (min-width: 700px) {
+
+  #login {
+    position: relative;
+    width: 50%;
+    height: 50vh;
+    margin: 25vh auto;
+  }
 }
 
 #login h2 {
@@ -118,9 +165,6 @@ body {
   color: white;
 }
 
-#login input {
-  margin: 10px 0px;
-}
 
 #login button:hover {
   background: orange;
@@ -129,29 +173,19 @@ body {
 
 #login button {
   transition: all 350ms;
-  margin: 10px 0px;
-  border-radius: 20px;
+  
   color: white;
   font-weight: 500;
   font-size: 16px;
 }
 
-#login button.login { background: #c1ae24; }
-#login button.signup { background: #c19c24; }
+#login button.login { background: #24c136; }
+#login button.signup { background: #2463c1; }
+#login button.login:hover { background: #0a7d18; }
+#login button.signup:hover { background: #0f4493; }
 
-#login button:hover {
-  background: green;
-} 
 
-#logout-button:hover {
-  background: #c18f24;
-  border-radius: 15px;
-}
 
-#logout-button {
-  padding: 10px;
-  cursor: pointer;
-}
 
 #score-controller {
   display: flex;

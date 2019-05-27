@@ -97,8 +97,11 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="app-header">
-          <h1>Precarity</h1>
-          {authUser && <div id='logout-button' onClick={this.signOut}>Logout {this.state.authUser.email}</div>}
+          <h1 className='title'>Precarity</h1>
+          <div className='logout' onClick={this.signOut}>
+            <span>{this.state.authUser.email}</span>
+            <span className='button'>Logout</span>
+          </div>
         </header>
         <Actions newGame={newGame} joinGame={joinGame} />
         <Game
