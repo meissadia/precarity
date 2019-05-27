@@ -4,15 +4,6 @@ import { ScoreController } from './ScoreController';
 import { db } from '../firebase/index';
 import { db as fdb } from '../firebase/firebase';
 
-export class PlayerFB {
-    constructor(args) {
-        this._id = args.id;
-    }
-    get ref() {
-        return `/users/${this._id}`;
-    }
-}
-
 /**
  * Firebase Connected Game
  */
@@ -71,6 +62,11 @@ export class FBGame {
             });
     }
 
+    /* Toggle Double flag for Game */
+    static toggleDouble(gameId, double) {
+        fdb.collection('games').doc(gameId).update({ double })
+    }
+
     /* Unregister Event Listeners */
     cleanup() {
         if (this.closeGameListener) {
@@ -93,9 +89,12 @@ export const Game = ({ game, player }) => {
                     <Player key={idx} player={player} />
                 )}
             </div>
+            <div id='double-indicator' className={game.double ? 'active' : ''} onClick={FBGame.toggleDouble.bind(null, game.id, !game.double)}>
+                {game.double ? '2x' : '1x'}
+            </div>
             <ScoreController
                 player={player}
-                game={game}
+                double={game.double}
             />
         </div>
     )

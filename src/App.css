@@ -8,7 +8,6 @@ body {
 }
 
 .app-header {
-  background-color: #282c34;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,12 +45,14 @@ body {
   cursor: pointer;
 }
 
+#currentGame h2 {
+  user-select: text;
+}
+
 #currentGame {
-  /* height: 0vh; */
-  /* line-height: 20vh; */
   padding: 10px 0;
   color: white;
-  background: blue;
+  background: rgb(80, 80, 80);
 }
 
 #currentGame .close {
@@ -64,15 +65,40 @@ body {
 #scoreboard {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
 .player {
-  background: grey;
+  background: blue;
   width: 30%;
   padding-bottom: 30px;
+  border: 3px solid black;
+  border-radius: 20px;
+  margin: auto;
+}
+
+.player div {
+  font-size: 2em;
+}
+
+#double-indicator.active{
+  background: #768ea3;
+  background: green;
+}
+
+#double-indicator:hover {
+  background: #24c16b;
+}
+
+#double-indicator {
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 10px 0;
+  margin: 5px auto 10px auto;
+  width: 25%;
+  border-radius: 20px;
+  background: blue;
 }
 
 #login {
@@ -118,7 +144,7 @@ body {
 } 
 
 #logout-button:hover {
-  background: pink;
+  background: #c18f24;
   border-radius: 15px;
 }
 
@@ -131,7 +157,6 @@ body {
   display: flex;
   flex-flow: column wrap;
   justify-content: space-around;
-  background: purple;
   align-content: center;
   padding-bottom: 20px;
 }
@@ -140,25 +165,16 @@ body {
   width: 50%;
   padding: 20px;
   border-radius: 20px;
-  background: rgb(0, 72, 255);
+  background: blue;
   margin: 2px auto;
   font-size: 2em;
 }
 
 .score-button:hover {
-  background: blue;
+  background: #0044FF;
   cursor: pointer;
 }
 
 .score-button.reset:hover {
-  background: #c18f24;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  background: #c18a00;
 }

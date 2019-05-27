@@ -27,15 +27,16 @@ export const ScoreButton = props => {
     );
 };
 
-export const ResetButton = props => <ScoreButton {...props} />
+export const ResetScoreButton = props => <ScoreButton {...props} />
 
 export const ScoreController = props => {
-    const { player, game } = props;
+    const { player, double } = props;
 
     if (!player) return null;
 
     let values = props.values || DEFAULT_SCORES;
-    if (game.double)
+
+    if (double)
         values = values.map(x => x * 2);
 
     return (
@@ -48,7 +49,12 @@ export const ScoreController = props => {
                     value={val}
                 />
             )}
-            <ResetButton player={player} value={-player.score} label='Clear Score' className='reset' />
+            <ResetScoreButton
+                player={player}
+                value={-player.score}
+                label='Clear Score'
+                className='reset'
+            />
         </div>
     )
 };
