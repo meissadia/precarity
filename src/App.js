@@ -99,7 +99,7 @@ class App extends React.Component {
         <header className="app-header">
           <h1 className='title'>Precarity</h1>
           <div className='logout' onClick={this.signOut}>
-            <span>{this.state.authUser.email}</span>
+            <span>{player && player.name}</span>
             <span className='button'>Logout</span>
           </div>
         </header>

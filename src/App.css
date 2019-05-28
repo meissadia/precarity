@@ -1,8 +1,13 @@
 body {
+  margin: 0;
   background: #282c34;
   width: 100%;
   height: 100vh;
-
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .App {
@@ -56,7 +61,7 @@ body {
 }
 
 #actions div {
-  width: 40vw;
+  min-width: 45vw;
   height: 20vh;
   line-height: 20vh;
   box-sizing: border-box;
@@ -126,39 +131,60 @@ body {
   background: blue;
 }
 
+#tab-select {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+
+
+#tab-select div {
+  box-sizing: border-box;
+  color: white;
+  font-weight: bold;
+  padding: 10px 0;
+  margin: 2px auto 15px auto;
+  cursor: pointer;
+}
+
+#tab-select div.signup:hover {
+  border-bottom: 5px solid #2463c1;
+}
+
+#tab-select div.login:hover {
+  border-bottom: 5px solid #24c136;
+}
+
+#tab-select .active {
+  border-bottom: 5px solid #4040a9;
+}
+
 #login {
   width: 100%;
-  height: 80vh;
+  height: 100vh;
   margin: 5vh auto;
-  background: rgb(41, 146, 156);
-  border-radius: 20px;
+  background: #29929C;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   align-content: center;
   text-align: center;
+  font-size: 1.5em;
 }
 
-#login input {
-  padding-left: 5px;
+
+#login .inputs input, 
+#login .inputs button {
   box-sizing: border-box;
-}
-
-#login input, #login button {
-  width: 60%;
+  width: 90%;
   margin: 10px auto;
-  border-radius: 20px;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  font-size: 1em;
+  border: 0;
 }
 
-@media screen and (min-width: 700px) {
-
-  #login {
-    position: relative;
-    width: 50%;
-    height: 50vh;
-    margin: 25vh auto;
-  }
-}
 
 #login h2 {
   text-transform: uppercase;
@@ -171,12 +197,9 @@ body {
   cursor: pointer;
 }
 
-#login button {
+#login .inputs button {
   transition: all 350ms;
-  
   color: white;
-  font-weight: 500;
-  font-size: 16px;
 }
 
 #login button.login { background: #24c136; }
@@ -184,9 +207,31 @@ body {
 #login button.login:hover { background: #0a7d18; }
 #login button.signup:hover { background: #0f4493; }
 
+#login #errors {
+  background: rgb(94, 9, 9);
+  color: white;
+  padding: 10px 0;
+}
 
+@media screen and (min-width: 700px) {
 
+  #login {
+    position: relative;
+    width: 50%;
+    height: 50vh;
+    margin: 25vh auto;
+    border-radius: 20px;
+  }
 
+  #login .inputs input, 
+  #login .inputs button {
+    width: 60%;
+    margin: 10px auto;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+  }
+}
 #score-controller {
   display: flex;
   flex-flow: column wrap;
