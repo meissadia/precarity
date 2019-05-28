@@ -26,6 +26,7 @@ class App extends React.Component {
       game: null,
       player: null,
       authUser: null,
+      error: null,
     };
     this.gameController = new GameController({ update: this.setState });
   };
@@ -41,6 +42,9 @@ class App extends React.Component {
       this.cancelUserListener();
       this.cancelUserListener = null;
     }
+
+    // Promise with unregister function for game listener
+    this.gameListener && this.gameListener.then(closer => closer && closer());
   }
 
   componentDidUpdate(_prevProps, prevState) {
@@ -77,7 +81,22 @@ class App extends React.Component {
   */
   joinGame = () => {
     const input = window.prompt('Enter Game ID');
-    input && this.gameController.joinGame(input, this.state.player.id);
+    if (input) {
+      this.gameController.joinGame(input, this.state.player.id).then(result => {
+        if (result.success) {
+          this.gameListener = result.closer;
+          return;
+        }
+
+        // Unable to join.  
+        // Clear current game
+        this.setState({
+          game: null,
+          error: result.error
+        });
+
+      })
+    }
   }
 
   signOut = () => {
@@ -90,7 +109,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { player, game, authUser } = this.state;
+    const { player, game, authUser, error } = this.state;
     const { newGame, joinGame, setState } = this;
 
     if (!authUser) return <Login update={setState} />;
@@ -104,6 +123,7 @@ class App extends React.Component {
           </div>
         </header>
         <Actions newGame={newGame} joinGame={joinGame} />
+        {error && <div id='app-error-bar'>{error}</div>}
         <Game
           game={game}
           player={player}

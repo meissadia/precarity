@@ -8,12 +8,12 @@ import { db as fdb } from '../firebase/firebase';
  *  Call #cleanup on componentWillUnmount to unregister Firestore listeners.
  */
 class GameController {
-    static MAX_PLAYERS = 3;
 
     constructor(args = {}) {
         this.update = args.update;
         this.players = args.players;    // List of player refs
         this.double = args.double;      // Show double score values
+        this.MAX_PLAYERS = 3;
     }
 
     /* Toggle Double flag for Game */
@@ -32,7 +32,8 @@ class GameController {
                 this.closeGameListener =
                     docRef.onSnapshot(doc => {           // Subscribe to game updates
                         const game = { ...doc.data(), id: doc.id };
-                        this.update({ game });           // Cache current game data
+                        const error = null;
+                        this.update({ game, error });    // Cache current game data
 
                         // NOTE: 
                         //  Tried to resolve players here but it led to glitchy behavior
@@ -45,22 +46,40 @@ class GameController {
     joinGame(gameId, playerId) {
         this.cleanup();
 
+        // Returns a Promise
         // Add own ID to game's player list
-        fdb.collection('games').doc(gameId).get().then(doc => {
-            const { players } = doc.data();
+        return fdb.collection('games').doc(gameId).get().then(doc => {
+            const doc_data = doc.data();
 
-            if (!players.includes(playerId)) {
-                players.push(playerId);
+            if (doc_data === undefined)
+                return { success: false, errors: ['Game not found!'] };
+
+            const { players } = doc_data;
+
+            if (!players.includes(playerId)) {              // I'm not in the game
+                if (players.length >= this.MAX_PLAYERS) {   // ...but it's full, sorry.
+                    return {
+                        success: false,
+                        error: 'Sorry, game is full!',
+                    };
+                }
+
+                players.push(playerId);                     // ...so add myself
                 fdb.collection('games').doc(gameId).update({ players })
             }
+
+            // I'm in the game
+            // ...subscribe to game updates to know when players join/leave.
+            const closeGameListener =
+                fdb.collection('games').doc(gameId).onSnapshot(doc => {
+                    const game = { ...doc.data(), id: doc.id };
+                    const error = null;
+                    this.update({ game, error });
+                });
+
+            return { success: true, closer: closeGameListener };
         });
 
-        // Subscribe to game updates
-        this.closeGameListener =
-            fdb.collection('games').doc(gameId).onSnapshot(doc => {
-                const game = { ...doc.data(), id: doc.id };
-                this.update({ game });
-            });
     }
 
     /* Unregister Event Listeners */
