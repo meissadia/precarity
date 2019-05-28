@@ -27,7 +27,7 @@ class GameController {
     newGame(args) {
         this.cleanup();
 
-        db.doCreateGame({ players: this.players })       // Create a new game in the DB
+        db.doCreateGame({ players: args.players })       // Create a new game in the DB
             .then(docRef => {
                 this.closeGameListener =
                     docRef.onSnapshot(doc => {           // Subscribe to game updates
