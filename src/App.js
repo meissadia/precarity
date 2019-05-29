@@ -4,6 +4,7 @@ import { get, isEqual, isEmpty } from 'lodash';
 import GameController from './controllers/GameController';
 import Game from './components/Game';
 import { NewDetails } from './components/NewDetails';
+import { Logout } from './components/Logout';
 import { Login } from './components/Login';
 import { Actions } from './components/Actions';
 
@@ -127,6 +128,7 @@ class App extends React.Component {
   clearKey = key => this.setState({ [key]: null });
 
 
+
   render() {
     const { player, game, authUser, error, showingNewDetails } = this.state;
     const { clearKey, newGame, joinGame, setState } = this;
@@ -142,20 +144,12 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <header className="app-header">
+        <div id='dashboard'>
           <h1 className='title'>Precarity</h1>
-          <div className='logout' onClick={this.signOut}>
-            <span>{player && player.name}</span>
-            <span className='button'>Logout</span>
-          </div>
-        </header>
-        <Actions newGame={newGame} joinGame={joinGame} />
+          <Actions newGame={newGame} joinGame={joinGame} />
+          <Logout click={this.signOut} player={player} />
+        </div>
         {error && <div id='app-error-bar'>{error}</div>}
-        <Game
-          game={game}
-          player={player}
-          updater={setState}
-        />
       </div>
     );
   };

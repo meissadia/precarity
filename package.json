@@ -15,7 +15,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "firebase": "firebase",
-    "serve": "firebase serve"
+    "serve": "firebase serve",
+    "deploy": "firebase deploy"
   },
   "eslintConfig": {
     "extends": "react-app"

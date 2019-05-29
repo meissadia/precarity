@@ -14,11 +14,10 @@ export const NewDetails = props => {
         type='text'
         onChange={changeHandler}
         placeholder='Game Name'
-        autoFocus
       />
       <div className='actions'>
-        <button className='cancel' onClick={cancel}>Cancel</button>
         <button className='create' onClick={creator}>Create</button>
+        <button className='cancel' onClick={cancel}>Cancel</button>
       </div>
     </form>
   );

@@ -1,8 +1,6 @@
 body {
   margin: 0;
   background: #282c34;
-  width: 100%;
-  height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -15,75 +13,70 @@ body {
   user-select: none;
 }
 
-.app-header {
-  display: flex;
-  flex-direction: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  text-transform: uppercase;
-  border-bottom: 1px solid white;
-}
-
-.app-header .title { 
-  margin-left: 5%;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-}
-
-.app-header .title { 
-  margin-left: 5%;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-}
-
-.app-header .logout:hover {
-  color: #c18f24;
+.logout:hover {
+  background: #2b480e;
   border-radius: 15px;
 }
 
-.app-header .logout .button {
-  font-size: 12px;
+.logout .button {
+  font-size: .75em;
 }
 
-.app-header .logout {
+.logout {
+  background: #357335;
   display: flex;
   flex-flow: column nowrap;
-  margin-right: 5%;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 1.5em;
+  color: white;
+  padding: 20px;
+  width: 20%;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+#dashboard .title {
+  font-size: 2em;
+  color: white;
+  text-transform: uppercase;
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+#dashboard {
+  width: 100%;
+  height: 100vh;
+  background: #947f16;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
 }
 
 #actions {
   display: flex;
-  align-content: center;
   flex-flow: row wrap;
+  align-content: center;
   justify-content: space-evenly;
   color: white;
   box-sizing: border-box;
   margin: 20px auto;
 }
 
-#actions div {
-  min-width: 45vw;
+#actions .item {
+  width: 40vw;
   height: 20vh;
   line-height: 20vh;
   box-sizing: border-box;
-  margin: 5px auto;
-  background: green;
+  margin: 5px 10px;
+  background: #357335;
   border-radius: 20px;
+  font-size: 1em;
+  font-weight: 500;
 }
 
-#actions div:hover {
-  background: rgb(82, 148, 16);
+#actions .item:hover {
+  background: #2b480e;
   cursor: pointer;
 }
-
-/* #currentGame h2 {
-  user-select: text;
-  margin: 10px auto;
-} */
 
 #currentGame {
   padding: 10px 0;
@@ -175,7 +168,6 @@ body {
 #login {
   width: 100%;
   height: 100vh;
-  margin: 5vh auto;
   background: #29929C;
   display: flex;
   flex-flow: column wrap;
@@ -328,10 +320,12 @@ body {
   margin-top: 2vh;
   cursor: pointer;
   font-weight: 500;
+  border: 0;
 }
 
-#new-details .actions button.cancel:hover { background: rgb(194, 97, 97); }
+#new-details .actions button.create { background: rgb(40, 130, 40); }
 #new-details .actions button.create:hover { background: rgb(66, 171, 66); }
+#new-details .actions button.cancel:hover { background: rgb(194, 97, 97); }
 
 input:focus {
   outline: none;
