@@ -12,7 +12,7 @@ export const Game = ({ game, player }) => {
 
     return (
         <div id='currentGame'>
-            <h2>{game.id}</h2>
+            <h2>{game.name}</h2>
             <div id='scoreboard'>
                 {game.players.map((player, idx) =>
                     <Player key={idx} player={player} />

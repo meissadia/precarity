@@ -1,22 +1,17 @@
 import React from 'react';
-import { get, isEqual } from 'lodash';
+import { get, isEqual, isEmpty } from 'lodash';
 
 import GameController from './controllers/GameController';
 import Game from './components/Game';
-
+import { NewDetails } from './components/NewDetails';
 import { Login } from './components/Login';
+import { Actions } from './components/Actions';
+
 import { auth } from './firebase/index';
 import { db as fdb } from './firebase/firebase';
 import { firebase } from './firebase';
 
 import './App.css';
-
-const Actions = ({ newGame, joinGame }) => (
-  <div id='actions'>
-    <div className='new' onClick={newGame}>New Game</div>
-    <div className='join' onClick={joinGame}>Join Game</div>
-  </div>
-)
 
 class App extends React.Component {
   constructor(props) {
@@ -27,6 +22,7 @@ class App extends React.Component {
       player: null,
       authUser: null,
       error: null,
+      showingNewDetails: null,
     };
     this.gameController = new GameController({ update: this.setState });
   };
@@ -72,8 +68,28 @@ class App extends React.Component {
   /**
    * ! Side effect: Updates App State
    */
-  newGame = () => {
-    this.gameController.newGame({ players: [this.state.authUser.uid] });
+  newGame = (name, e) => {
+    e.preventDefault();
+
+    // if this is the first time, show the details screen
+    if (!this.state.showingNewDetails) {
+      this.setState({ showingNewDetails: true });
+      return;
+    }
+
+
+    // If we're on the details screen and we have a game name
+    if (!isEmpty(name)) {
+      // FIXME: verify game name is not taken
+    }
+
+    //...create and join the game
+    //...hide the details screen
+    this.gameController.newGame({
+      players: [this.state.authUser.uid],
+      name,
+    });
+
   };
 
   /**
@@ -108,11 +124,16 @@ class App extends React.Component {
     })
   }
 
+  clearKey = key => this.setState({ [key]: null });
+
+
   render() {
-    const { player, game, authUser, error } = this.state;
-    const { newGame, joinGame, setState } = this;
+    const { player, game, authUser, error, showingNewDetails } = this.state;
+    const { clearKey, newGame, joinGame, setState } = this;
 
     if (!authUser) return <Login update={setState} />;
+    if (showingNewDetails) return <NewDetails newGame={newGame} cancel={clearKey} />
+
     return (
       <div className="App">
         <header className="app-header">

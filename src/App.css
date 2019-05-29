@@ -38,9 +38,13 @@ body {
   margin-bottom: 1vh;
 }
 
-.app-header .logout .button:hover {
+.app-header .logout:hover {
   color: #c18f24;
   border-radius: 15px;
+}
+
+.app-header .logout .button {
+  font-size: 12px;
 }
 
 .app-header .logout {
@@ -48,6 +52,7 @@ body {
   flex-flow: column nowrap;
   margin-right: 5%;
   cursor: pointer;
+  font-size: 1em;
 }
 
 #actions {
@@ -267,4 +272,58 @@ body {
   margin: auto;
   width: 25%;
   border-radius: 10px;
+}
+
+#new-details {
+  width: 100%;
+  height: 100vh;
+  background: rgb(89, 17, 17);
+  color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+#new-details h2 {
+  text-align: center;
+  margin-bottom: 5vh;
+  text-transform: uppercase;
+}
+
+#new-details input {
+  width: 40%;
+  margin: 0 auto;
+  font-size: 1em;
+  border: 0;
+  border-radius: 20px;
+  padding: 10px 5px;
+  text-align: center;
+} 
+
+#new-details .actions {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1vh;
+}
+
+#new-details .actions button {
+  width: 40%;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: black;
+  font-size: 1em;
+  text-transform: uppercase;
+  margin-top: 2vh;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+#new-details .actions button.cancel:hover { background: rgb(194, 97, 97); }
+#new-details .actions button.create:hover { background: rgb(66, 171, 66); }
+
+input:focus {
+  outline: none;
 }

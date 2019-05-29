@@ -15,10 +15,22 @@ export const doCreateUser = (id, email, extraState = {}) =>
 
 export const doGetUser = id => db.collection("users").doc(id).get();
 
-export const doCreateGame = args => (
-  db.collection("games").add({
-    players: args.players || [],
-    double: false,
-  })
-)
+export const doCreateGame = args => {
+  const name = args.name || randomName();
 
+  return (
+    db.collection("games").doc(name).set({
+      name,
+      players: args.players || [],
+      double: false,
+    }).then(() => ({ id: name }))
+  )
+};
+
+const randomName = () => {
+  const rand = array => array[Math.floor(Math.random() * array.length)];
+  const names = 'arm can car ear eye fit fur kit leg lit map nit ohm pan pen pin pit ton win wit won zen'.split(' ');
+  const number = Math.floor(Math.random() * 100); //[...Array(50).keys()];
+
+  return `${rand(names)}-${number}`;
+}

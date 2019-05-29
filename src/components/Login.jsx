@@ -51,6 +51,7 @@ export const Login = props => {
                         value={email}
                         placeholder='Email'
                         onChange={change.bind(null, setEmail)}
+                        autoFocus
                     />
                     <input required
                         name='displayName'

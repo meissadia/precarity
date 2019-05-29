@@ -27,13 +27,20 @@ class GameController {
     newGame(args) {
         this.cleanup();
 
-        db.doCreateGame({ players: args.players })       // Create a new game in the DB
+        db.doCreateGame({                                // Create a new game in the DB
+            players: args.players,
+            name: args.name,
+        })
             .then(docRef => {
                 this.closeGameListener =
-                    docRef.onSnapshot(doc => {           // Subscribe to game updates
+                    fdb.collection('games').doc(docRef.id).onSnapshot(doc => {           // Subscribe to game updates
                         const game = { ...doc.data(), id: doc.id };
                         const error = null;
-                        this.update({ game, error });    // Cache current game data
+                        this.update({                   // Cache current game data
+                            game,
+                            error,
+                            showingNewDetails: false,
+                        });
 
                         // NOTE: 
                         //  Tried to resolve players here but it led to glitchy behavior
