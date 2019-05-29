@@ -9,7 +9,10 @@ export const Login = props => {
      * @param {Function} callback Apply callback to event.target.value
      * @param {Event} event 
      */
-    const change = (callback, event) => callback(event.target.value);
+    const change = (callback, setError, event) => {
+        setError(null);
+        callback(event.target.value);
+    }
 
     const SignUp = () => {
         const [email, setEmail] = useState('');
@@ -50,21 +53,21 @@ export const Login = props => {
                         type="email"
                         value={email}
                         placeholder='Email'
-                        onChange={change.bind(null, setEmail)}
+                        onChange={change.bind(null, setEmail, setError)}
                         autoFocus
                     />
                     <input required
                         name='displayName'
                         type="text" value={displayName}
                         placeholder='Username'
-                        onChange={change.bind(null, setDisplayName)}
+                        onChange={change.bind(null, setDisplayName, setError)}
                     />
                     <input
                         name='password'
                         type="password"
                         value={password}
                         placeholder='Password'
-                        onChange={change.bind(null, setPassword)}
+                        onChange={change.bind(null, setPassword, setError)}
                     />
                     <button className='signup' type='submit'>Signup</button>
                 </div>
@@ -80,7 +83,7 @@ export const Login = props => {
     const SignIn = () => {
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
-        let [error, setError] = useState(null);
+        const [error, setError] = useState(null);
 
         const onSignIn = e => {
             e.preventDefault();
@@ -100,7 +103,7 @@ export const Login = props => {
                         type="email"
                         value={email}
                         placeholder='Email'
-                        onChange={change.bind(null, setEmail)}
+                        onChange={change.bind(null, setEmail, setError)}
                         autoFocus
                     />
                     <input
@@ -108,7 +111,7 @@ export const Login = props => {
                         type="password"
                         placeholder='Password'
                         value={password}
-                        onChange={change.bind(null, setPassword)}
+                        onChange={change.bind(null, setPassword, setError)}
                     />
                     <button className='login' type='submit'>Login</button>
                 </div>
