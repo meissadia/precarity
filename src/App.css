@@ -80,10 +80,10 @@ body {
   cursor: pointer;
 }
 
-#currentGame h2 {
+/* #currentGame h2 {
   user-select: text;
   margin: 10px auto;
-}
+} */
 
 #currentGame {
   padding: 10px 0;
@@ -106,7 +106,7 @@ body {
 }
 
 .player {
-  background: blue;
+  background: #0044FF;
   width: 30%;
   padding-bottom: 30px;
   border: 3px solid black;
@@ -116,6 +116,13 @@ body {
 
 .player div {
   font-size: 2em;
+}
+
+.player.me h2::before {
+  content: '•';
+  color: rgb(35, 159, 35);
+  padding-right: 5px;
+  font-size: 1.5em;
 }
 
 #double-indicator.active{
@@ -134,7 +141,7 @@ body {
   margin: 5px auto 10px auto;
   width: 25%;
   border-radius: 20px;
-  background: blue;
+  background: #0044FF;
 }
 
 #tab-select {
@@ -250,13 +257,13 @@ body {
   width: 50%;
   padding: 20px;
   border-radius: 20px;
-  background: blue;
+  background: #0044FF;
   margin: 2px auto;
   font-size: 2em;
 }
 
 .score-button:hover {
-  background: #0044FF;
+  background: rgb(48, 103, 255);
   cursor: pointer;
 }
 
@@ -341,6 +348,10 @@ input:focus {
 #game-bar div {
   width: 30%;
   box-sizing: border-box;
+}
+
+#game-bar .game-name {
+  user-select: text;
 }
 
 #game-bar .link {

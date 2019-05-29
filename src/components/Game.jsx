@@ -22,13 +22,13 @@ export const Game = ({ game, player, updater, closeListener }) => {
                     &lt;&nbsp;Leave
                 </div>
                 <div>PRECARITY</div>
-                <div></div>
+                <div className='game-name'>{game.name}</div>
             </div>
             <div id='currentGame'>
-                <h2>{game.name}</h2>
+                {/* <h2>{game.name}</h2> */}
                 <div id='scoreboard'>
-                    {game.players.map((player, idx) =>
-                        <Player key={idx} player={player} />
+                    {game.players.map((gplayer, idx) =>
+                        <Player key={idx} player={gplayer} me={player.id === gplayer} />
                     )}
                 </div>
                 <div id='double-indicator'

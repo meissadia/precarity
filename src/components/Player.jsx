@@ -27,8 +27,11 @@ export class Player extends React.Component {
 
     render() {
         const { player } = this.state;
+        let cname = this.props.me ? 'me' : null;
+        cname = ['player', cname].join(' ');
+
         return (
-            <div id={player.id} className='player'>
+            <div id={player.id} className={cname}>
                 <h2>{player.name}</h2>
                 <div>{player.score}</div>
             </div>
