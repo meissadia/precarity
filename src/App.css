@@ -82,6 +82,7 @@ body {
 
 #currentGame h2 {
   user-select: text;
+  margin: 10px auto;
 }
 
 #currentGame {
@@ -298,6 +299,7 @@ body {
   border-radius: 20px;
   padding: 10px 5px;
   text-align: center;
+  box-sizing: border-box;
 } 
 
 #new-details .actions {
@@ -326,4 +328,21 @@ body {
 
 input:focus {
   outline: none;
+}
+
+#game-bar {
+  padding: 10px 0;
+  color: white;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+#game-bar div {
+  width: 30%;
+  box-sizing: border-box;
+}
+
+#game-bar .link {
+  cursor: pointer;
 }

@@ -131,8 +131,14 @@ class App extends React.Component {
     const { player, game, authUser, error, showingNewDetails } = this.state;
     const { clearKey, newGame, joinGame, setState } = this;
 
-    if (!authUser) return <Login update={setState} />;
-    if (showingNewDetails) return <NewDetails newGame={newGame} cancel={clearKey} />
+    if (!authUser)
+      return <Login update={setState} />;
+
+    if (showingNewDetails)
+      return <NewDetails newGame={newGame} cancel={clearKey} />;
+
+    if (game && player)
+      return <Game game={game} player={player} updater={setState} closeListener={this.gameListener} />
 
     return (
       <div className="App">

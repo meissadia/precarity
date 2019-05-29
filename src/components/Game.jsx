@@ -6,28 +6,42 @@ import GameController from '../controllers/GameController';
 /**
  * Display Scoreboard and Score controls
  */
-export const Game = ({ game, player }) => {
+export const Game = ({ game, player, updater, closeListener }) => {
     if (!game) return null;
     const toggleDouble = GameController.toggleDouble;
+    const goBack = () => {
+        // FIXME: Delete self from game player list
+        closeListener();            // Stop following game updates
+        updater({ game: null });    // Clear local game data
+    }
 
     return (
-        <div id='currentGame'>
-            <h2>{game.name}</h2>
-            <div id='scoreboard'>
-                {game.players.map((player, idx) =>
-                    <Player key={idx} player={player} />
-                )}
+        <div className="App">
+            <div id='game-bar'>
+                <div className='link' onClick={goBack}>
+                    &lt;&nbsp;Leave
+                </div>
+                <div>PRECARITY</div>
+                <div></div>
             </div>
-            <div id='double-indicator'
-                className={game.double ? 'active' : ''}
-                onClick={toggleDouble.bind(null, game.id, !game.double)}
-            >
-                {game.double ? '2x' : '1x'}
+            <div id='currentGame'>
+                <h2>{game.name}</h2>
+                <div id='scoreboard'>
+                    {game.players.map((player, idx) =>
+                        <Player key={idx} player={player} />
+                    )}
+                </div>
+                <div id='double-indicator'
+                    className={game.double ? 'active' : ''}
+                    onClick={toggleDouble.bind(null, game.id, !game.double)}
+                >
+                    {game.double ? '2x' : '1x'}
+                </div>
+                <ScoreController
+                    player={player}
+                    double={game.double}
+                />
             </div>
-            <ScoreController
-                player={player}
-                double={game.double}
-            />
         </div>
     )
 }
