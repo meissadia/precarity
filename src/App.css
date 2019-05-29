@@ -13,9 +13,8 @@ body {
   user-select: none;
 }
 
-.logout:hover {
-  background: #2b480e;
-  border-radius: 15px;
+button, .button {
+  user-select: none;
 }
 
 .logout .button {
@@ -73,11 +72,6 @@ body {
   font-weight: 500;
 }
 
-#actions .item:hover {
-  background: #2b480e;
-  cursor: pointer;
-}
-
 #currentGame {
   padding: 10px 0;
   color: white;
@@ -113,7 +107,7 @@ body {
 
 .player.me h2::before {
   content: '•';
-  color: rgb(35, 159, 35);
+  color: #009a46;
   padding-right: 5px;
   font-size: 1.5em;
 }
@@ -123,9 +117,6 @@ body {
   background: green;
 }
 
-#double-indicator:hover {
-  background: #24c16b;
-}
 
 #double-indicator {
   font-size: 1.5em;
@@ -153,13 +144,7 @@ body {
   cursor: pointer;
 }
 
-#tab-select div.signup:hover {
-  border-bottom: 5px solid #2463c1;
-}
 
-#tab-select div.login:hover {
-  border-bottom: 5px solid #24c136;
-}
 
 #tab-select .active {
   border-bottom: 5px solid #4040a9;
@@ -190,16 +175,9 @@ body {
   border: 0;
 }
 
-
 #login h2 {
   text-transform: uppercase;
   color: white;
-}
-
-
-#login button:hover {
-  background: orange;
-  cursor: pointer;
 }
 
 #login .inputs button {
@@ -209,8 +187,6 @@ body {
 
 #login button.login { background: #24c136; }
 #login button.signup { background: #2463c1; }
-#login button.login:hover { background: #0a7d18; }
-#login button.signup:hover { background: #0f4493; }
 
 #login #errors {
   background: rgb(94, 9, 9);
@@ -252,15 +228,6 @@ body {
   background: #0044FF;
   margin: 2px auto;
   font-size: 2em;
-}
-
-.score-button:hover {
-  background: rgb(48, 103, 255);
-  cursor: pointer;
-}
-
-.score-button.reset:hover {
-  background: #c18a00;
 }
 
 #app-error-bar {
@@ -324,8 +291,6 @@ body {
 }
 
 #new-details .actions button.create { background: rgb(40, 130, 40); }
-#new-details .actions button.create:hover { background: rgb(66, 171, 66); }
-#new-details .actions button.cancel:hover { background: rgb(194, 97, 97); }
 
 input:focus {
   outline: none;
@@ -337,6 +302,7 @@ input:focus {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  font-size: 1em;
 }
 
 #game-bar div {
@@ -350,4 +316,45 @@ input:focus {
 
 #game-bar .link {
   cursor: pointer;
+}
+
+
+@media (hover: hover){
+  .logout:hover {
+    background: #2b480e;
+    border-radius: 15px;
+  }
+  
+  #actions .item:hover {
+    background: #2b480e;
+    cursor: pointer;
+  }
+
+  #double-indicator:hover {
+    background: #01883e;
+  }
+
+  #tab-select div.signup:hover { border-bottom: 5px solid #2463c1 }
+  #tab-select div.login:hover { border-bottom: 5px solid #24c136 }
+
+
+  #login button:hover {
+    background: orange;
+    cursor: pointer;
+  }
+
+  #login button.login:hover { background: #0a7d18; }
+  #login button.signup:hover { background: #0f4493; }
+
+  .score-button:hover {
+    background: rgb(48, 103, 255);
+    cursor: pointer;
+  }
+
+  .score-button.reset:hover { background: #906700; }
+
+  #new-details .actions button.create:hover { background: rgb(66, 171, 66); }
+  #new-details .actions button.cancel:hover { background: rgb(194, 97, 97); }
+
+  #game-bar .link:hover { text-decoration: underline }
 }
