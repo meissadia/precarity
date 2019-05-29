@@ -16,7 +16,9 @@
     "eject": "react-scripts eject",
     "firebase": "firebase",
     "serve": "firebase serve",
-    "deploy": "npm run build && firebase deploy"
+    "dfb": "npm run build && firebase deploy",
+    "surge": "surge ./build/ --domain https://precarity.surge.sh",
+    "ds": "npm run build && npm run surge"
   },
   "eslintConfig": {
     "extends": "react-app"
