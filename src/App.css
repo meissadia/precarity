@@ -72,51 +72,83 @@ button, .button {
   font-weight: 500;
 }
 
-#currentGame {
-  padding: 10px 0;
-  color: white;
-  background: rgb(80, 80, 80);
+#score-controller {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-content: center;
+  padding-bottom: 20px;
+  width: 50%;
+  box-sizing: border-box;
 }
 
-#currentGame .close {
-  display: inline-block;
-  position: relative;
-  top: -8vh;
-  left: 60%;
+.score-button.reset {
+  text-transform: uppercase;
+}
+
+.score-button {
+  width: 70%;
+  padding: 10%;
+  border-radius: 20px;
+  background: #0044FF;
+  margin: 2px auto;
+  font-size: 2em;
+}
+
+#currentGame {
+  display: flex;
+  flex-flow: row nowrap;
+  margin-top: 40px;
+  padding-top: 20px;
+  color: white;
 }
 
 #scoreboard {
   display: flex;
-  flex-flow: row wrap;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-content: center;
+  width: 50%;
+  box-sizing: border-box;
+  padding: 0 10px;
 }
 
 .player {
   background: #0044FF;
-  width: 30%;
+  width: 100%;
   padding-bottom: 30px;
-  border: 3px solid black;
+  border: 1px solid white;
   border-radius: 20px;
-  margin: auto;
+  margin: 5px auto;
+  box-sizing: border-box;
 }
 
 .player div {
   font-size: 2em;
 }
 
-.player.me h2::before {
-  content: '•';
-  color: #009a46;
-  padding-right: 5px;
+.player .indicator {
+  color: #d4c128;
   font-size: 1.5em;
+  display: none;
+  
+}
+
+.player.me .indicator { display: block; }
+.player.me h2 {
+  margin: 5px auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player.me {
+  border: 3px solid #d4c128;
 }
 
 #double-indicator.active{
   background: #768ea3;
   background: green;
 }
-
 
 #double-indicator {
   font-size: 1.5em;
@@ -128,12 +160,40 @@ button, .button {
   background: #0044FF;
 }
 
+#game-bar {
+  position: fixed;
+  top: 0;
+  box-sizing: content-box;
+  height: 20px;
+  width: 100%;
+  padding: 10px 0;
+  color: white;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  font-size: 1em;
+  height: 20px;
+  background: rgb(80, 80, 80);
+}
+
+#game-bar div {
+  width: 30%;
+  box-sizing: border-box;
+}
+
+#game-bar .game-name {
+  user-select: text;
+}
+
+#game-bar .link {
+  cursor: pointer;
+}
+
 #tab-select {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
 }
-
 
 #tab-select div {
   box-sizing: border-box;
@@ -143,8 +203,6 @@ button, .button {
   margin: 2px auto 15px auto;
   cursor: pointer;
 }
-
-
 
 #tab-select .active {
   border-bottom: 5px solid #4040a9;
@@ -161,7 +219,6 @@ button, .button {
   text-align: center;
   font-size: 1.5em;
 }
-
 
 #login .inputs input, 
 #login .inputs button {
@@ -212,22 +269,6 @@ button, .button {
     padding: 10px;
     text-align: center;
   }
-}
-#score-controller {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: space-around;
-  align-content: center;
-  padding-bottom: 20px;
-}
-
-.score-button {
-  width: 50%;
-  padding: 20px;
-  border-radius: 20px;
-  background: #0044FF;
-  margin: 2px auto;
-  font-size: 2em;
 }
 
 #app-error-bar {
@@ -294,28 +335,6 @@ button, .button {
 
 input:focus {
   outline: none;
-}
-
-#game-bar {
-  padding: 10px 0;
-  color: white;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  font-size: 1em;
-}
-
-#game-bar div {
-  width: 30%;
-  box-sizing: border-box;
-}
-
-#game-bar .game-name {
-  user-select: text;
-}
-
-#game-bar .link {
-  cursor: pointer;
 }
 
 

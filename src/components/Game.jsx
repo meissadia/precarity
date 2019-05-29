@@ -25,22 +25,22 @@ export const Game = ({ game, player, updater, closeListener }) => {
                 <div className='game-name'>{game.name}</div>
             </div>
             <div id='currentGame'>
-                {/* <h2>{game.name}</h2> */}
-                <div id='scoreboard'>
-                    {game.players.map((gplayer, idx) =>
-                        <Player key={idx} player={gplayer} me={player.id === gplayer} />
-                    )}
-                </div>
-                <div id='double-indicator'
-                    className={game.double ? 'active' : ''}
-                    onClick={toggleDouble.bind(null, game.id, !game.double)}
-                >
-                    {game.double ? '2x' : '1x'}
-                </div>
                 <ScoreController
                     player={player}
                     double={game.double}
                 />
+                <div id='scoreboard'>
+                    {game.players.map((gplayer, idx) =>
+                        <Player key={idx} player={gplayer} me={player.id === gplayer} />
+                    )}
+                    <div id='double-indicator'
+                        className={game.double ? 'active' : ''}
+                        onClick={toggleDouble.bind(null, game.id, !game.double)}
+                    >
+                        {game.double ? '2x' : '1x'}
+                    </div>
+                </div>
+
             </div>
         </div>
     )

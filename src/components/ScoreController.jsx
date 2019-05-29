@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { db } from '../firebase/firebase';
 
 const DEFAULT_SCORES = [200, 400, 600, 800, 1000];
@@ -30,6 +30,10 @@ export const ScoreButton = props => {
 export const ResetScoreButton = props => <ScoreButton {...props} />
 
 export const ScoreController = props => {
+    useLayoutEffect(() => {
+        window && window.scrollTo(0, 0);
+    })
+
     const { player, double } = props;
 
     if (!player) return null;
@@ -41,7 +45,6 @@ export const ScoreController = props => {
 
     return (
         <div id='score-controller'>
-            <h2>Score: {player.score}</h2>
             {values.map(val =>
                 <ScoreButton
                     key={val}
@@ -52,7 +55,7 @@ export const ScoreController = props => {
             <ResetScoreButton
                 player={player}
                 value={-player.score}
-                label='Clear Score'
+                label='Reset'
                 className='reset'
             />
         </div>
