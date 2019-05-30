@@ -63,22 +63,33 @@ class GameController {
         return fdb.collection('games').doc(gameId).get().then(doc => {
             const doc_data = doc.data();
 
-            if (doc_data === undefined)
-                return { success: false, error: 'Game not found!' };
+            /* Game exists */
+            if (doc_data) {
+                const { players } = doc_data;
 
-            const { players } = doc_data;
+                if (!players.includes(playerId)) {              // I'm not in the game
+                    if (players.length >= this.MAX_PLAYERS) {   // ...but it's full, sorry.
+                        return {
+                            success: false,
+                            error: 'Sorry, game is full!',
+                        };
+                    }
 
-            if (!players.includes(playerId)) {              // I'm not in the game
-                if (players.length >= this.MAX_PLAYERS) {   // ...but it's full, sorry.
-                    return {
-                        success: false,
-                        error: 'Sorry, game is full!',
-                    };
+                    players.push(playerId);                     // ...so add myself
+                    fdb.collection('games').doc(gameId).update({ players })
                 }
-
-                players.push(playerId);                     // ...so add myself
-                fdb.collection('games').doc(gameId).update({ players })
             }
+
+            /* Game doesn't exist yet */
+            if (doc_data === undefined) {
+                /* Create it... */
+                fdb.collection('games').doc(gameId).set({
+                    name: gameId,
+                    players: [playerId],
+                    double: false,
+                })
+            }
+
 
             // I'm in the game
             // ...subscribe to game updates to know when players join/leave.

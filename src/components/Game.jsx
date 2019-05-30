@@ -3,13 +3,22 @@ import Player from './Player';
 import { ScoreController } from './ScoreController';
 import GameController from '../controllers/GameController';
 import { db } from '../firebase/firebase';
+import { get } from 'lodash';
 
 /**
  * Display Scoreboard and Score controls
  */
 export const Game = ({ game, player, updater, closeListener }) => {
     if (!game) return null;
+
+    if (!get(game, 'players', []).includes(player.id)) {
+        // I'm not a player in this game, unfollow.
+        updater({ game: null });
+        return null;
+    }
+
     const toggleDouble = GameController.toggleDouble;
+
     const goBack = () => {
         db.collection('games').doc(game.name).get().then(doc => {
             const data = doc.data();
