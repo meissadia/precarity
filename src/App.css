@@ -24,29 +24,7 @@ button,
     background: #357335;
     display: flex;
     flex-flow: column nowrap;
-    cursor: pointer;
-    font-size: 1.5em;
-    color: white;
-    padding: 20px;
-    width: 20%;
-    margin: 0 auto;
-    border-radius: 20px;
-}
-
-#dashboard .title {
-    font-size: 2em;
-    color: white;
-    text-transform: uppercase;
-    font-family: "Helvetica Neue", sans-serif;
-}
-
-#dashboard {
-    width: 100%;
-    height: 100vh;
-    background: #947f16;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
+    align-items: center;
 }
 
 #actions {
@@ -90,7 +68,7 @@ button,
     width: 70%;
     padding: 10%;
     border-radius: 20px;
-    background: #0044FF;
+    background: #1848ce;
     margin: 2px auto;
     font-size: 2em;
 }
@@ -114,7 +92,7 @@ button,
 }
 
 .player {
-    background: #0044FF;
+    background: #1848ce;
     width: 100%;
     padding-bottom: 30px;
     border: 1px solid white;
@@ -314,7 +292,14 @@ button,
     padding: 10px;
 }
 
-#new-details,
+#join-details .title {
+    font-size: 2em;
+    color: white;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue", sans-serif;
+    text-align: center;
+}
+
 #join-details {
     width: 100%;
     height: 100vh;
@@ -325,14 +310,12 @@ button,
     justify-content: center;
 }
 
-#new-details h2,
 #join-details h2 {
     text-align: center;
     margin-bottom: 5vh;
     text-transform: uppercase;
 }
 
-#new-details input,
 #join-details input {
     width: 40%;
     margin: 0 auto;
@@ -348,17 +331,14 @@ button,
     font-size: 1.5em;
 }
 
-#new-details input::placeholder,
 #join-details input::placeholder {
     color: lightgrey;
 }
 
-#new-details input:focus,
 #join-details input:focus {
     border-bottom: 2px solid #24c136;
 }
 
-#new-details .actions,
 #join-details .actions {
     display: flex;
     flex-flow: column nowrap;
@@ -367,8 +347,8 @@ button,
     margin-top: 1vh;
 }
 
-#new-details .actions button,
-#join-details .actions button {
+#join-details .actions button,
+#join-details .actions > div {
     width: 40%;
     color: white;
     padding: 10px 20px;
@@ -380,11 +360,14 @@ button,
     cursor: pointer;
     font-weight: 500;
     border: 0;
+    box-sizing: border-box;
 }
 
-#new-details .actions button.create,
-#join-details .actions button.join {
-    background: rgb(40, 130, 40);
+#join-details .actions .join {
+    background: #00072D;
+}
+#join-details .actions .logout {
+    background: #33032F;
 }
 
 #join-details {
@@ -396,10 +379,6 @@ input:focus {
 }
 
 @media (hover: hover) {
-    .logout:hover {
-        background: #2b480e;
-        border-radius: 15px;
-    }
     #actions .item:hover {
         background: #2b480e;
         cursor: pointer;
@@ -430,13 +409,11 @@ input:focus {
     .score-button.reset:hover {
         background: #906700;
     }
-    #new-details .actions button.create:hover,
     #join-details .actions button.join:hover {
-        background: rgb(66, 171, 66);
+        background: #1988b7;
     }
-    #new-details .actions button.cancel:hover,
-    #join-details .actions button.cancel:hover {
-        background: rgb(181, 66, 66);
+    #join-details .actions .logout:hover {
+        background: #6d2854;
     }
     #game-bar .link:hover {
         text-decoration: underline

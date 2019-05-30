@@ -1,13 +1,11 @@
 import React from 'react';
 import { get, isEqual, isEmpty } from 'lodash';
 
+import { randomOrName } from './lib/randomOrName';
 import GameController from './controllers/GameController';
 import Game from './components/Game';
 import { EmailLogin } from './components/EmailLogin/EmailLogin';
 import { JoinDetails } from './components/JoinDetails';
-import { NewDetails } from './components/NewDetails';
-import { Logout } from './components/Logout';
-import { Actions } from './components/Actions';
 
 import { auth } from './firebase/index';
 import { db as fdb } from './firebase/firebase';
@@ -113,26 +111,20 @@ class App extends React.Component {
   joinGame = (name, e) => {
     e.preventDefault();
 
-    // if this is the first time, show the details screen
-    if (!this.state.showingJoinDetails) {
-      this.setState({ showingJoinDetails: true });
-      return;
-    }
-
-
-    // const input = window.prompt('Enter Game ID');
-    this.gameController.joinGame(name, this.state.player.id).then(result => {
+    this.gameController.joinGame(
+      randomOrName(name),
+      this.state.player.id
+    ).then(result => {
       if (result.success) {
         this.gameListener = result.closer;
         return;
       }
 
-      // Unable to join.  
-      // Clear current game
-      this.setState({
-        game: null,
-        error: result.error
-      });
+      const { error } = result;
+      const game = null;
+
+      // Unable to join. Clear current game
+      this.setState({ game, error });
 
     })
   }
@@ -148,20 +140,12 @@ class App extends React.Component {
 
   clearKey = key => this.setState({ [key]: null });
 
-
-
   render() {
-    const { player, game, authUser, error, showingNewDetails, showingJoinDetails } = this.state;
-    const { clearKey, newGame, joinGame, setState } = this;
+    const { player, game, authUser, error } = this.state;
+    const { clearKey, joinGame, setState } = this;
 
     if (!authUser)
       return <EmailLogin update={setState} />;
-
-    if (showingNewDetails)
-      return <NewDetails newGame={newGame} cancel={clearKey} updater={this.setState} error={error} />;
-
-    if (showingJoinDetails)
-      return <JoinDetails joinGame={joinGame} cancel={clearKey} updater={this.setState} error={error} />;
 
     if (game && player)
       return <Game
@@ -170,16 +154,13 @@ class App extends React.Component {
         updater={setState}
         closeListener={this.gameListener} />
 
-    return (
-      <div className="App">
-        <div id='dashboard'>
-          <h1 className='title'>Precarity</h1>
-          <Actions newGame={newGame} joinGame={joinGame} />
-          <Logout click={this.signOut} player={player} />
-        </div>
-        {error && <div id='app-error-bar'>{error}</div>}
-      </div>
-    );
+    return <JoinDetails joinGame={joinGame}
+      player={player}
+      cancel={clearKey}
+      updater={this.setState}
+      error={error}
+      signOut={this.signOut}
+    />;
   };
 };
 
