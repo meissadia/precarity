@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, isEqual, isEmpty } from 'lodash';
+import { get, isEqual } from 'lodash';
 
 import { randomOrName } from './lib/randomOrName';
 import GameController from './controllers/GameController';
@@ -67,45 +67,6 @@ class App extends React.Component {
   }
 
   /**
-   * ! Side effect: Updates App State
-   */
-  newGame = (name, e) => {
-    e.preventDefault();
-
-    // if this is the first time, show the details screen
-    if (!this.state.showingNewDetails) {
-      this.setState({ showingNewDetails: true });
-      return;
-    }
-
-
-    // If we're on the details screen and we have a game name
-    if (!isEmpty(name)) {
-      // FIXME: verify game name is not taken
-    }
-
-    //...create and join the game
-    //...hide the details screen
-    this.gameController.newGame({
-      players: [this.state.authUser.uid],
-      name,
-    }).then(result => {
-      if (result.success) {
-        this.gameListener = result.closer;
-        return;
-      };
-
-      // Unable to Create.  
-      // Clear current game
-      this.setState({
-        game: null,
-        error: result.error
-      });
-    })
-
-  };
-
-  /**
   * ! Side effect: Updates App State
   */
   joinGame = (name, e) => {
@@ -142,16 +103,16 @@ class App extends React.Component {
 
   render() {
     const { player, game, authUser, error } = this.state;
-    const { clearKey, joinGame, setState } = this;
+    const { clearKey, joinGame } = this;
 
     if (!authUser)
-      return <EmailLogin update={setState} />;
+      return <EmailLogin update={this.setState} />;
 
     if (game && player)
       return <Game
         game={game}
         player={player}
-        updater={setState}
+        updater={this.setState}
         closeListener={this.gameListener} />
 
     return <JoinDetails joinGame={joinGame}

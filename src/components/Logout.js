@@ -8,7 +8,6 @@ export const Logout = props => {
 
   return (
     <div className='logout' onClick={click}>
-      <span>{player && player.name}</span>
       <span className='button'>Logout</span>
     </div>
   );

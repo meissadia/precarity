@@ -1,3 +1,16 @@
+:root {
+    --login-primary: #86a52a;
+}
+
+* {
+    transition: all 350ms;
+    user-select: none;
+}
+
+input {
+    user-select: text;
+}
+
 body {
     margin: 0;
     background: #282c34;
@@ -17,7 +30,7 @@ button,
 }
 
 .logout .button {
-    font-size: .75em;
+    font-size: 1em;
 }
 
 .logout {
@@ -172,26 +185,36 @@ button,
 #tab-select {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-around;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
 }
 
 #tab-select div {
+    border-bottom: 5px solid rgba(0,0,0,0);
     box-sizing: border-box;
     color: white;
     font-weight: bold;
     padding: 10px 0;
     margin: 2px auto 15px auto;
     cursor: pointer;
+    width: 20%;
 }
 
-#tab-select .active {
-    border-bottom: 5px solid #4040a9;
+#tab-select .signup.active {
+    border-bottom: 5px solid #49C6E5
+}
+
+#tab-select .login.active {
+    border-bottom: 5px solid #24c136;
 }
 
 #login {
     width: 100%;
     height: 100vh;
-    background: #29929C;
+    background: #276573;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -201,24 +224,44 @@ button,
 }
 
 #login .inputs {
+    display: flex;
+    flex-flow: column nowrap;
     background: inherit;
     border-radius: inherit;
 }
 
 #login .inputs button {
     border-radius: 10px;
+    text-transform: uppercase;
 }
 
 #login .inputs input,
 #login .inputs button {
     box-sizing: border-box;
-    width: 90%;
+    width: 80vw;
     margin: 10px auto;
     border-radius: 10px;
     padding: 10px;
     text-align: center;
     font-size: 1em;
     border: 0;
+}
+
+@media screen and (min-width: 768px){
+    #login .inputs input,
+    #login .inputs button,
+    #tab-select {
+        width: 50vw;
+    }
+}
+
+@media screen and (min-width: 1224px){
+    #login .inputs input,
+    #login .inputs button,
+    #tab-select {
+        width: 30vw;
+    }
+
 }
 
 #login .inputs input {
@@ -228,11 +271,19 @@ button,
     color: white;
 }
 
+#login .inputs button {
+    color: white;
+}
+
 #login .inputs input::placeholder {
     color: lightgrey;
 }
 
-#login .inputs input:focus {
+#login .inputs.signup input:focus {
+    border-bottom: 2px solid #49C6E5;
+}
+
+#login .inputs.login input:focus {
     border-bottom: 2px solid #24c136;
 }
 
@@ -241,17 +292,12 @@ button,
     color: white;
 }
 
-#login .inputs button {
-    transition: all 350ms;
-    color: white;
-}
-
 #login button.login {
     background: #24c136;
 }
 
 #login button.signup {
-    background: #2463c1;
+    background: #49C6E5;
 }
 
 #login #errors {
@@ -261,22 +307,20 @@ button,
     padding: 10px 0;
 }
 
-@media screen and (min-width: 700px) {
-    #login {
-        position: relative;
-        width: 50%;
-        min-height: 50vh;
-        max-height: 60vh;
-        margin: 25vh auto;
-        border-radius: 20px;
-    }
-    #login .inputs input,
-    #login .inputs button {
-        width: 60%;
-        margin: 10px auto;
-        padding: 10px;
-        text-align: center;
-    }
+#login .inputs button.disabled,
+#login .inputs button.disabled:hover {
+    background: grey ;
+    cursor: not-allowed;
+}
+
+#login .login input.invalid:focus {
+    border-bottom: 2px solid grey !important;
+}
+#login .login input.valid {
+    border-bottom: 2px solid #24c136 !important;
+}
+#login .signup input.valid {
+    border-bottom: 2px solid #49C6E5 !important;
 }
 
 #app-error-bar {
@@ -354,7 +398,7 @@ button,
     padding: 10px 20px;
     border-radius: 20px;
     background: black;
-    font-size: 1em;
+    font-size: 1.5em;
     text-transform: uppercase;
     margin-top: 2vh;
     cursor: pointer;
@@ -364,14 +408,18 @@ button,
 }
 
 #join-details .actions .join {
-    background: #00072D;
+    background: #F9EBE0;
+    color: #208AAE;
 }
+
 #join-details .actions .logout {
-    background: #33032F;
+    background: #546A7B;
+    color: #F9EBE0;
+    text-shadow: 2px 1px 3px #F9EBE0 inset;
 }
 
 #join-details {
-    background: #2e4279;
+    background: #0D2149;
 }
 
 input:focus {
@@ -387,7 +435,7 @@ input:focus {
         background: #01883e;
     }
     #tab-select div.signup:hover {
-        border-bottom: 5px solid #2463c1
+        border-bottom: 5px solid #49C6E5
     }
     #tab-select div.login:hover {
         border-bottom: 5px solid #24c136
@@ -410,22 +458,21 @@ input:focus {
         background: #906700;
     }
     #join-details .actions button.join:hover {
-        background: #1988b7;
+        color: #F9EBE0;
+        background: #208AAE;
     }
     #join-details .actions .logout:hover {
-        background: #6d2854;
+        background: #320E3B;
+        color: #F9EBE0;
     }
     #game-bar .link:hover {
         text-decoration: underline
     }
 }
 
-button.disabled,
-button.disabled:hover {
-    background: #930f3d !important;
-    cursor: not-allowed !important;
-}
 
-input.invalid:focus {
-    border-bottom: 2px solid #930f3d !important;
+#version {
+    color: white;
+    font-size: .5em;
+    margin-top: 10px;
 }

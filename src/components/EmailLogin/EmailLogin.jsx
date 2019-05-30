@@ -95,7 +95,7 @@ export class EmailLogin extends React.Component {
         return (
             <form id='login' >
                 <h2>Precarity</h2>
-                <div className='inputs'>
+                <div className={['inputs', section].join(' ')}>
                     <TabSelect
                         selected={section}
                         setState={this.setState.bind(this)}
@@ -107,7 +107,7 @@ export class EmailLogin extends React.Component {
                         placeholder='Email'
                         onChange={onChange.bind(null, 'email')}
                         autoComplete='off'
-                        className={emailValid() ? '' : 'invalid'}
+                        className={emailValid() ? 'valid' : 'invalid'}
                     />
                     {isSignup &&
                         <input required
@@ -116,7 +116,7 @@ export class EmailLogin extends React.Component {
                             placeholder='Name'
                             onChange={onChange.bind(null, 'displayName')}
                             autoComplete='off'
-                            className={nameValid() ? '' : 'invalid'}
+                            className={nameValid() ? 'valid' : 'invalid'}
                         />
                     }
                     <input required
@@ -125,7 +125,7 @@ export class EmailLogin extends React.Component {
                         value={password}
                         placeholder='Password'
                         onChange={onChange.bind(null, 'password')}
-                        className={passwordValid() ? '' : 'invalid'}
+                        className={passwordValid() ? 'valid' : 'invalid'}
                     />
                     <SubmitLogin
                         section={section}
@@ -134,6 +134,7 @@ export class EmailLogin extends React.Component {
                     />
                 </div>
                 <Error error={error} />
+                <div id='version'>Version 0.1.0</div>
             </form >
         );
     };

@@ -6,6 +6,21 @@ const Welcome = ({ player }) => {
   return <h2>Welcome, {player.name}!</h2>
 }
 
+/**
+ * Color scheme
+ * DEEP PURPLE
+ * #320E3B
+ * AFRICAN VIOLET
+ * #9F84BD
+ * PAYNE'S GREY
+ * #546A7B
+ * MOCCASIN
+ * #F9EBE0
+ * CYAN CORNFLOWER BLUE
+ * #208AAE
+ * OXFORD BLUE
+ * #0D2149
+ *  */
 export const JoinDetails = props => {
   const [name, setName] = useState(null);
   const joiner = props.joinGame.bind(null, name);
