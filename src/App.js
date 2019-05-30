@@ -3,10 +3,10 @@ import { get, isEqual, isEmpty } from 'lodash';
 
 import GameController from './controllers/GameController';
 import Game from './components/Game';
+import { EmailLogin } from './components/EmailLogin/EmailLogin';
 import { JoinDetails } from './components/JoinDetails';
 import { NewDetails } from './components/NewDetails';
 import { Logout } from './components/Logout';
-import { Login } from './components/Login';
 import { Actions } from './components/Actions';
 
 import { auth } from './firebase/index';
@@ -155,7 +155,7 @@ class App extends React.Component {
     const { clearKey, newGame, joinGame, setState } = this;
 
     if (!authUser)
-      return <Login update={setState} />;
+      return <EmailLogin update={setState} />;
 
     if (showingNewDetails)
       return <NewDetails newGame={newGame} cancel={clearKey} updater={this.setState} error={error} />;

@@ -223,8 +223,8 @@ button,
 }
 
 #login .inputs {
-    background: #29929C;
-    border-radius: 20px;
+    background: inherit;
+    border-radius: inherit;
 }
 
 #login .inputs button {
@@ -277,7 +277,8 @@ button,
 }
 
 #login #errors {
-    background: rgb(94, 9, 9);
+    background: inherit;
+    border-radius: inherit;
     color: white;
     padding: 10px 0;
 }
@@ -286,7 +287,8 @@ button,
     #login {
         position: relative;
         width: 50%;
-        height: 50vh;
+        min-height: 50vh;
+        max-height: 60vh;
         margin: 25vh auto;
         border-radius: 20px;
     }
@@ -439,4 +441,14 @@ input:focus {
     #game-bar .link:hover {
         text-decoration: underline
     }
+}
+
+button.disabled,
+button.disabled:hover {
+    background: #930f3d !important;
+    cursor: not-allowed !important;
+}
+
+input.invalid:focus {
+    border-bottom: 2px solid #930f3d !important;
 }

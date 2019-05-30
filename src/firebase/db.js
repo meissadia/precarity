@@ -7,7 +7,6 @@ export const doCreateUser = (id, email, extraState = {}) =>
     profile: {
       id,
       email,
-      name: email,
     },
     ...extraState,
   });
