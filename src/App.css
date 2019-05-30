@@ -1,379 +1,424 @@
 body {
-  margin: 0;
-  background: #282c34;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    background: #282c34;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .App {
-  text-align: center;
-  user-select: none;
+    text-align: center;
+    user-select: none;
 }
 
-button, .button {
-  user-select: none;
+button,
+.button {
+    user-select: none;
 }
 
 .logout .button {
-  font-size: .75em;
+    font-size: .75em;
 }
 
 .logout {
-  background: #357335;
-  display: flex;
-  flex-flow: column nowrap;
-  cursor: pointer;
-  font-size: 1.5em;
-  color: white;
-  padding: 20px;
-  width: 20%;
-  margin: 0 auto;
-  border-radius: 20px;
+    background: #357335;
+    display: flex;
+    flex-flow: column nowrap;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: white;
+    padding: 20px;
+    width: 20%;
+    margin: 0 auto;
+    border-radius: 20px;
 }
 
 #dashboard .title {
-  font-size: 2em;
-  color: white;
-  text-transform: uppercase;
+    font-size: 2em;
+    color: white;
+    text-transform: uppercase;
     font-family: "Helvetica Neue", sans-serif;
 }
 
 #dashboard {
-  width: 100%;
-  height: 100vh;
-  background: #947f16;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background: #947f16;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
 }
 
 #actions {
-  display: flex;
-  flex-flow: row wrap;
-  align-content: center;
-  justify-content: space-evenly;
-  color: white;
-  box-sizing: border-box;
-  margin: 20px auto;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    color: white;
+    box-sizing: border-box;
+    margin: 20px auto;
 }
 
 #actions .item {
-  width: 40vw;
-  height: 20vh;
-  line-height: 20vh;
-  box-sizing: border-box;
-  margin: 5px 10px;
-  background: #357335;
-  border-radius: 20px;
-  font-size: 1em;
-  font-weight: 500;
+    width: 40vw;
+    height: 20vh;
+    line-height: 20vh;
+    box-sizing: border-box;
+    margin: 5px 10px;
+    background: #357335;
+    border-radius: 20px;
+    font-size: 1em;
+    font-weight: 500;
 }
 
 #score-controller {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: flex-start;
-  align-content: center;
-  padding-bottom: 20px;
-  width: 50%;
-  box-sizing: border-box;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-content: center;
+    padding-bottom: 20px;
+    width: 50%;
+    box-sizing: border-box;
 }
 
 .score-button.reset {
-  text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 .score-button {
-  width: 70%;
-  padding: 10%;
-  border-radius: 20px;
-  background: #0044FF;
-  margin: 2px auto;
-  font-size: 2em;
+    width: 70%;
+    padding: 10%;
+    border-radius: 20px;
+    background: #0044FF;
+    margin: 2px auto;
+    font-size: 2em;
 }
 
 #currentGame {
-  display: flex;
-  flex-flow: row nowrap;
-  margin-top: 40px;
-  padding-top: 20px;
-  color: white;
+    display: flex;
+    flex-flow: row nowrap;
+    margin-top: 40px;
+    padding-top: 20px;
+    color: white;
 }
 
 #scoreboard {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: flex-start;
-  align-content: center;
-  width: 50%;
-  box-sizing: border-box;
-  padding: 0 10px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-content: center;
+    width: 50%;
+    box-sizing: border-box;
+    padding: 0 10px;
 }
 
 .player {
-  background: #0044FF;
-  width: 100%;
-  padding-bottom: 30px;
-  border: 1px solid white;
-  border-radius: 20px;
-  margin: 5px auto;
-  box-sizing: border-box;
+    background: #0044FF;
+    width: 100%;
+    padding-bottom: 30px;
+    border: 1px solid white;
+    border-radius: 20px;
+    margin: 5px auto;
+    box-sizing: border-box;
 }
 
 .player div {
-  font-size: 2em;
+    font-size: 2em;
 }
 
 .player .indicator {
-  color: #d4c128;
-  font-size: 1.5em;
-  display: none;
-  
+    color: #d4c128;
+    font-size: 1.5em;
+    display: none;
 }
 
-.player.me .indicator { display: block; }
+.player.me .indicator {
+    display: block;
+}
+
 .player.me h2 {
-  margin: 5px auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    margin: 5px auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .player.me {
-  border: 3px solid #d4c128;
+    border: 3px solid #d4c128;
 }
 
-#double-indicator.active{
-  background: #768ea3;
-  background: green;
+#double-indicator.active {
+    background: #768ea3;
+    background: green;
 }
 
 #double-indicator {
-  font-size: 1.5em;
-  cursor: pointer;
-  padding: 10px 0;
-  margin: 5px auto 10px auto;
-  width: 25%;
-  border-radius: 20px;
-  background: #0044FF;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 10px 0;
+    margin: 5px auto 10px auto;
+    width: 25%;
+    border-radius: 20px;
+    background: #0044FF;
 }
 
 #game-bar {
-  position: fixed;
-  top: 0;
-  box-sizing: content-box;
-  height: 20px;
-  width: 100%;
-  padding: 10px 0;
-  color: white;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  font-size: 1em;
-  height: 20px;
-  background: rgb(80, 80, 80);
+    position: fixed;
+    top: 0;
+    box-sizing: content-box;
+    height: 20px;
+    width: 100%;
+    padding: 10px 0;
+    color: white;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    font-size: 1em;
+    height: 20px;
+    background: rgb(80, 80, 80);
 }
 
 #game-bar div {
-  width: 30%;
-  box-sizing: border-box;
+    width: 30%;
+    box-sizing: border-box;
 }
 
 #game-bar .game-name {
-  user-select: text;
+    user-select: text;
 }
 
 #game-bar .link {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 #tab-select {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
 }
 
 #tab-select div {
-  box-sizing: border-box;
-  color: white;
-  font-weight: bold;
-  padding: 10px 0;
-  margin: 2px auto 15px auto;
-  cursor: pointer;
+    box-sizing: border-box;
+    color: white;
+    font-weight: bold;
+    padding: 10px 0;
+    margin: 2px auto 15px auto;
+    cursor: pointer;
 }
 
 #tab-select .active {
-  border-bottom: 5px solid #4040a9;
+    border-bottom: 5px solid #4040a9;
 }
 
 #login {
-  width: 100%;
-  height: 100vh;
-  background: #29929C;
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-content: center;
-  text-align: center;
-  font-size: 1.5em;
+    width: 100%;
+    height: 100vh;
+    background: #29929C;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-content: center;
+    text-align: center;
+    font-size: 1.5em;
 }
 
-#login .inputs input, 
+#login .inputs {
+    background: #29929C;
+    border-radius: 20px;
+}
+
 #login .inputs button {
-  box-sizing: border-box;
-  width: 90%;
-  margin: 10px auto;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-  font-size: 1em;
-  border: 0;
+    border-radius: 10px;
+}
+
+#login .inputs input,
+#login .inputs button {
+    box-sizing: border-box;
+    width: 90%;
+    margin: 10px auto;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 1em;
+    border: 0;
+}
+
+#login .inputs input {
+    background: none;
+    border-bottom: 2px solid white;
+    border-radius: 0;
+    color: white;
+}
+
+#login .inputs input::placeholder {
+    color: lightgrey;
+}
+
+#login .inputs input:focus {
+    border-bottom: 2px solid #24c136;
 }
 
 #login h2 {
-  text-transform: uppercase;
-  color: white;
+    text-transform: uppercase;
+    color: white;
 }
 
 #login .inputs button {
-  transition: all 350ms;
-  color: white;
+    transition: all 350ms;
+    color: white;
 }
 
-#login button.login { background: #24c136; }
-#login button.signup { background: #2463c1; }
+#login button.login {
+    background: #24c136;
+}
+
+#login button.signup {
+    background: #2463c1;
+}
 
 #login #errors {
-  background: rgb(94, 9, 9);
-  color: white;
-  padding: 10px 0;
+    background: rgb(94, 9, 9);
+    color: white;
+    padding: 10px 0;
 }
 
 @media screen and (min-width: 700px) {
-
-  #login {
-    position: relative;
-    width: 50%;
-    height: 50vh;
-    margin: 25vh auto;
-    border-radius: 20px;
-  }
-
-  #login .inputs input, 
-  #login .inputs button {
-    width: 60%;
-    margin: 10px auto;
-    border-radius: 20px;
-    padding: 10px;
-    text-align: center;
-  }
+    #login {
+        position: relative;
+        width: 50%;
+        height: 50vh;
+        margin: 25vh auto;
+        border-radius: 20px;
+    }
+    #login .inputs input,
+    #login .inputs button {
+        width: 60%;
+        margin: 10px auto;
+        padding: 10px;
+        text-align: center;
+    }
 }
 
 #app-error-bar {
-  padding: 20px 0;
-  background: #c18a00;
-  color: white;
-  font-size: 1em;
-  box-sizing: border-box;
-  margin: auto;
-  width: 25%;
-  border-radius: 10px;
+    padding: 20px 0;
+    background: #c18a00;
+    color: white;
+    font-size: 1em;
+    box-sizing: border-box;
+    margin: auto;
+    width: 25%;
+    border-radius: 10px;
 }
 
 #new-details {
-  width: 100%;
-  height: 100vh;
-  background: rgb(89, 17, 17);
-  color: white;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background: rgb(89, 17, 17);
+    color: white;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
 }
 
 #new-details h2 {
-  text-align: center;
-  margin-bottom: 5vh;
-  text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 5vh;
+    text-transform: uppercase;
 }
 
 #new-details input {
-  width: 40%;
-  margin: 0 auto;
-  font-size: 1em;
-  border: 0;
-  border-radius: 20px;
-  padding: 10px 5px;
-  text-align: center;
-  box-sizing: border-box;
-} 
+    width: 40%;
+    margin: 0 auto;
+    font-size: 1em;
+    border: 0;
+    padding: 10px 5px;
+    text-align: center;
+    box-sizing: border-box;
+    background: none;
+    border-bottom: 2px solid white;
+    color: white;
+    font-size: 1.5em;
+}
+
+#new-details input::placeholder {
+    color: lightgrey;
+}
+
+#new-details input:focus {
+    border-bottom: 2px solid #24c136;
+}
 
 #new-details .actions {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 1vh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1vh;
 }
 
 #new-details .actions button {
-  width: 40%;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
-  background: black;
-  font-size: 1em;
-  text-transform: uppercase;
-  margin-top: 2vh;
-  cursor: pointer;
-  font-weight: 500;
-  border: 0;
+    width: 40%;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: black;
+    font-size: 1em;
+    text-transform: uppercase;
+    margin-top: 2vh;
+    cursor: pointer;
+    font-weight: 500;
+    border: 0;
 }
 
-#new-details .actions button.create { background: rgb(40, 130, 40); }
+#new-details .actions button.create {
+    background: rgb(40, 130, 40);
+}
 
 input:focus {
-  outline: none;
+    outline: none;
 }
 
-
-@media (hover: hover){
-  .logout:hover {
-    background: #2b480e;
-    border-radius: 15px;
-  }
-  
-  #actions .item:hover {
-    background: #2b480e;
-    cursor: pointer;
-  }
-
-  #double-indicator:hover {
-    background: #01883e;
-  }
-
-  #tab-select div.signup:hover { border-bottom: 5px solid #2463c1 }
-  #tab-select div.login:hover { border-bottom: 5px solid #24c136 }
-
-
-  #login button:hover {
-    background: orange;
-    cursor: pointer;
-  }
-
-  #login button.login:hover { background: #0a7d18; }
-  #login button.signup:hover { background: #0f4493; }
-
-  .score-button:hover {
-    background: rgb(48, 103, 255);
-    cursor: pointer;
-  }
-
-  .score-button.reset:hover { background: #906700; }
-
-  #new-details .actions button.create:hover { background: rgb(66, 171, 66); }
-  #new-details .actions button.cancel:hover { background: rgb(194, 97, 97); }
-
-  #game-bar .link:hover { text-decoration: underline }
+@media (hover: hover) {
+    .logout:hover {
+        background: #2b480e;
+        border-radius: 15px;
+    }
+    #actions .item:hover {
+        background: #2b480e;
+        cursor: pointer;
+    }
+    #double-indicator:hover {
+        background: #01883e;
+    }
+    #tab-select div.signup:hover {
+        border-bottom: 5px solid #2463c1
+    }
+    #tab-select div.login:hover {
+        border-bottom: 5px solid #24c136
+    }
+    #login button:hover {
+        background: orange;
+        cursor: pointer;
+    }
+    #login button.login:hover {
+        background: #0a7d18;
+    }
+    #login button.signup:hover {
+        background: #0f4493;
+    }
+    .score-button:hover {
+        background: rgb(48, 103, 255);
+        cursor: pointer;
+    }
+    .score-button.reset:hover {
+        background: #906700;
+    }
+    #new-details .actions button.create:hover {
+        background: rgb(66, 171, 66);
+    }
+    #new-details .actions button.cancel:hover {
+        background: rgb(194, 97, 97);
+    }
+    #game-bar .link:hover {
+        text-decoration: underline
+    }
 }
