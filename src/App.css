@@ -304,12 +304,15 @@ button,
     color: white;
     font-size: 1em;
     box-sizing: border-box;
-    margin: auto;
     width: 25%;
+    text-align: center;
     border-radius: 10px;
+    margin: 15px auto;
+    padding: 10px;
 }
 
-#new-details {
+#new-details,
+#join-details {
     width: 100%;
     height: 100vh;
     background: rgb(89, 17, 17);
@@ -319,13 +322,15 @@ button,
     justify-content: center;
 }
 
-#new-details h2 {
+#new-details h2,
+#join-details h2 {
     text-align: center;
     margin-bottom: 5vh;
     text-transform: uppercase;
 }
 
-#new-details input {
+#new-details input,
+#join-details input {
     width: 40%;
     margin: 0 auto;
     font-size: 1em;
@@ -339,15 +344,18 @@ button,
     font-size: 1.5em;
 }
 
-#new-details input::placeholder {
+#new-details input::placeholder,
+#join-details input::placeholder {
     color: lightgrey;
 }
 
-#new-details input:focus {
+#new-details input:focus,
+#join-details input:focus {
     border-bottom: 2px solid #24c136;
 }
 
-#new-details .actions {
+#new-details .actions,
+#join-details .actions {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
@@ -355,7 +363,8 @@ button,
     margin-top: 1vh;
 }
 
-#new-details .actions button {
+#new-details .actions button,
+#join-details .actions button {
     width: 40%;
     color: white;
     padding: 10px 20px;
@@ -369,8 +378,13 @@ button,
     border: 0;
 }
 
-#new-details .actions button.create {
+#new-details .actions button.create,
+#join-details .actions button.join {
     background: rgb(40, 130, 40);
+}
+
+#join-details {
+    background: #2e4279;
 }
 
 input:focus {
@@ -412,11 +426,13 @@ input:focus {
     .score-button.reset:hover {
         background: #906700;
     }
-    #new-details .actions button.create:hover {
+    #new-details .actions button.create:hover,
+    #join-details .actions button.join:hover {
         background: rgb(66, 171, 66);
     }
-    #new-details .actions button.cancel:hover {
-        background: rgb(194, 97, 97);
+    #new-details .actions button.cancel:hover,
+    #join-details .actions button.cancel:hover {
+        background: rgb(181, 66, 66);
     }
     #game-bar .link:hover {
         text-decoration: underline

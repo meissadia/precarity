@@ -11,17 +11,29 @@ export const Game = ({ game, player, updater, closeListener }) => {
     if (!game) return null;
     const toggleDouble = GameController.toggleDouble;
     const goBack = () => {
-        db.collection('games').doc(game.id).get().then(doc => {
+        db.collection('games').doc(game.name).get().then(doc => {
             const data = doc.data();
 
-            db.collection('games').doc(game.id).set({
+            // Remove self from player list
+            const newPlayerList = data.players.filter(p => p !== player.id);
+
+            /* Delete the game when there are no players active */
+            if (newPlayerList.length === 0) {
+                return db.collection('games').doc(game.name).delete().then(() => {
+                    closeListener && closeListener();
+                    updater({ game: null });
+                });
+            }
+
+            /* Update the game's player list */
+            db.collection('games').doc(game.name).set({
                 ...data,
-                players: data.players.filter(p => p !== player.id),
+                players: newPlayerList,
+            }).then(() => {
+                closeListener && closeListener();   // Stop following game updates
+                updater({ game: null });            // Clear local game data
             })
         });
-
-        closeListener();            // Stop following game updates
-        updater({ game: null });    // Clear local game data
     }
 
     return (
@@ -39,8 +51,12 @@ export const Game = ({ game, player, updater, closeListener }) => {
                     double={game.double}
                 />
                 <div id='scoreboard'>
-                    {game.players.map((gplayer, idx) =>
-                        <Player key={idx} player={gplayer} me={player.id === gplayer} />
+                    {game.players && game.players.map(gplayer =>
+                        <Player
+                            key={`${gplayer.id || gplayer}`}
+                            player={gplayer}
+                            me={player.id === (gplayer.id || gplayer)}
+                        />
                     )}
                     <div id='double-indicator'
                         className={game.double ? 'active' : ''}

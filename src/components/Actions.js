@@ -5,7 +5,7 @@ export const Actions = ({ newGame, joinGame }) => (
     <div className='item new' onClick={newGame.bind(null, 'new')}>
       New Game
     </div>
-    <div className='item join' onClick={joinGame}>
+    <div className='item join' onClick={joinGame.bind(null, 'join')}>
       Join Game
     </div>
   </div>

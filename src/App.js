@@ -3,6 +3,7 @@ import { get, isEqual, isEmpty } from 'lodash';
 
 import GameController from './controllers/GameController';
 import Game from './components/Game';
+import { JoinDetails } from './components/JoinDetails';
 import { NewDetails } from './components/NewDetails';
 import { Logout } from './components/Logout';
 import { Login } from './components/Login';
@@ -24,6 +25,7 @@ class App extends React.Component {
       authUser: null,
       error: null,
       showingNewDetails: null,
+      showingJoinDetails: null,
     };
     this.gameController = new GameController({ update: this.setState });
   };
@@ -89,31 +91,50 @@ class App extends React.Component {
     this.gameController.newGame({
       players: [this.state.authUser.uid],
       name,
-    });
+    }).then(result => {
+      if (result.success) {
+        this.gameListener = result.closer;
+        return;
+      };
+
+      // Unable to Create.  
+      // Clear current game
+      this.setState({
+        game: null,
+        error: result.error
+      });
+    })
 
   };
 
   /**
   * ! Side effect: Updates App State
   */
-  joinGame = () => {
-    const input = window.prompt('Enter Game ID');
-    if (input) {
-      this.gameController.joinGame(input, this.state.player.id).then(result => {
-        if (result.success) {
-          this.gameListener = result.closer;
-          return;
-        }
+  joinGame = (name, e) => {
+    e.preventDefault();
 
-        // Unable to join.  
-        // Clear current game
-        this.setState({
-          game: null,
-          error: result.error
-        });
-
-      })
+    // if this is the first time, show the details screen
+    if (!this.state.showingJoinDetails) {
+      this.setState({ showingJoinDetails: true });
+      return;
     }
+
+
+    // const input = window.prompt('Enter Game ID');
+    this.gameController.joinGame(name, this.state.player.id).then(result => {
+      if (result.success) {
+        this.gameListener = result.closer;
+        return;
+      }
+
+      // Unable to join.  
+      // Clear current game
+      this.setState({
+        game: null,
+        error: result.error
+      });
+
+    })
   }
 
   signOut = () => {
@@ -130,17 +151,24 @@ class App extends React.Component {
 
 
   render() {
-    const { player, game, authUser, error, showingNewDetails } = this.state;
+    const { player, game, authUser, error, showingNewDetails, showingJoinDetails } = this.state;
     const { clearKey, newGame, joinGame, setState } = this;
 
     if (!authUser)
       return <Login update={setState} />;
 
     if (showingNewDetails)
-      return <NewDetails newGame={newGame} cancel={clearKey} />;
+      return <NewDetails newGame={newGame} cancel={clearKey} updater={this.setState} error={error} />;
+
+    if (showingJoinDetails)
+      return <JoinDetails joinGame={joinGame} cancel={clearKey} updater={this.setState} error={error} />;
 
     if (game && player)
-      return <Game game={game} player={player} updater={setState} closeListener={this.gameListener} />
+      return <Game
+        game={game}
+        player={player}
+        updater={setState}
+        closeListener={this.gameListener} />
 
     return (
       <div className="App">

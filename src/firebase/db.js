@@ -19,11 +19,16 @@ export const doCreateGame = args => {
   const name = args.name || randomName();
 
   return (
-    db.collection("games").doc(name).set({
-      name,
-      players: args.players || [],
-      double: false,
-    }).then(() => ({ id: name }))
+    db.collection('games').doc(name).get().then(snap => {
+      if (snap.exists) return { success: false, error: 'Name already taken!' }
+      db.collection("games").doc(name).set({
+        name,
+        players: args.players || [],
+        double: false,
+      })
+
+      return { success: true, id: name };
+    })
   )
 };
 

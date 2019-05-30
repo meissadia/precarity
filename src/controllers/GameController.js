@@ -27,25 +27,30 @@ class GameController {
     newGame(args) {
         this.cleanup();
 
-        db.doCreateGame({                                // Create a new game in the DB
+        return db.doCreateGame({                                // Create a new game in the DB
             players: args.players,
             name: args.name,
         })
-            .then(docRef => {
-                this.closeGameListener =
-                    fdb.collection('games').doc(docRef.id).onSnapshot(doc => {           // Subscribe to game updates
-                        const game = { ...doc.data(), id: doc.id };
-                        const error = null;
-                        this.update({                   // Cache current game data
-                            game,
-                            error,
-                            showingNewDetails: false,
+            .then(status => {
+                if (status.success) {
+                    const closeGameListener =
+                        fdb.collection('games').doc(status.id).onSnapshot(doc => {           // Subscribe to game updates
+                            const game = { ...doc.data(), id: doc.id };
+                            const error = null;
+                            this.update({                   // Cache current game data
+                                game,
+                                error,
+                                showingNewDetails: false,
+                            });
+
+                            // NOTE: 
+                            //  Tried to resolve players here but it led to glitchy behavior
+                            //  where app state was inconsistent and wouldn't update as expected.  
                         });
 
-                        // NOTE: 
-                        //  Tried to resolve players here but it led to glitchy behavior
-                        //  where app state was inconsistent and wouldn't update as expected.  
-                    })
+                    return { success: true, closer: closeGameListener };
+                }
+                return { success: false, error: status.error }
             })
     }
 
@@ -59,7 +64,7 @@ class GameController {
             const doc_data = doc.data();
 
             if (doc_data === undefined)
-                return { success: false, errors: ['Game not found!'] };
+                return { success: false, error: 'Game not found!' };
 
             const { players } = doc_data;
 
@@ -81,7 +86,11 @@ class GameController {
                 fdb.collection('games').doc(gameId).onSnapshot(doc => {
                     const game = { ...doc.data(), id: doc.id };
                     const error = null;
-                    this.update({ game, error });
+                    this.update({
+                        game,
+                        error,
+                        showingJoinDetails: false,
+                    });
                 });
 
             return { success: true, closer: closeGameListener };
