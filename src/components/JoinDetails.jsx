@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Logout } from './Logout';
+import { Version } from './Version';
 
 const Welcome = ({ player }) => {
   if (!player) return <h2>Loading...</h2>
@@ -51,6 +52,7 @@ export const JoinDetails = props => {
         <Logout click={signOut} player={player} />
       </div>
       {error && <div id='app-error-bar'>{error}</div>}
+      <Version />
     </form>
   );
 };

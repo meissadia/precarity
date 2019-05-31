@@ -43,21 +43,34 @@ export const ScoreController = props => {
     if (double)
         values = values.map(x => x * 2);
 
-    return (
-        <div id='score-controller'>
-            {values.map(val =>
+    /* Split buttons into two columns */
+    let list1 = values.slice(0, (values.length / 2) + 1);
+    let list2 = values.slice((values.length / 2) + 1, values.length);
+
+    const ButtonCol = props => (
+        <div className='button-col'>
+            {props.list.map(val =>
                 <ScoreButton
                     key={val}
-                    player={player}
+                    player={props.player}
                     value={val}
                 />
             )}
-            <ResetScoreButton
-                player={player}
-                value={-player.score}
-                label='Reset'
-                className='reset'
-            />
+            {props.children}
+        </div>
+    )
+
+    return (
+        <div id='score-controller'>
+            <ButtonCol list={list1} player={player} />
+            <ButtonCol list={list2} player={player}>
+                <ResetScoreButton
+                    player={player}
+                    value={-player.score}
+                    label='Clear'
+                    className='reset'
+                />
+            </ButtonCol>
         </div>
     )
 };

@@ -45,8 +45,8 @@ export class Player extends React.Component {
         return (
             <div id={player.id} className={cname}>
                 <div className='indicator'>✦</div>
-                <h2>{player.name}</h2>
-                <div>{player.score}</div>
+                <h2 className='name'>{player.name}</h2>
+                <div className='score'>{player.score}</div>
             </div>
         );
     };

@@ -3,6 +3,7 @@ import Player from './Player';
 import { ScoreController } from './ScoreController';
 import GameController from '../controllers/GameController';
 import { db } from '../firebase/firebase';
+import { Version } from './Version';
 
 /**
  * Display Scoreboard and Score controls
@@ -10,6 +11,7 @@ import { db } from '../firebase/firebase';
 export const Game = ({ game, player, updater, closeListener }) => {
     if (!game) return null;
     if (!game.players || game.players.length === 0) return null;
+    if (!game.players.includes(player.id)) return null;
 
     const toggleDouble = GameController.toggleDouble;
 
@@ -42,18 +44,14 @@ export const Game = ({ game, player, updater, closeListener }) => {
 
     return (
         <div className="App">
-            <div id='game-bar'>
-                <div className='link' onClick={goBack}>
-                    &lt;&nbsp;Leave
-                </div>
-                <div>PRECARITY</div>
-                <div className='game-name'>{game.name}</div>
-            </div>
             <div id='currentGame'>
-                <ScoreController
-                    player={player}
-                    double={game.double}
-                />
+                <div id='game-bar'>
+                    <div className='back link' onClick={goBack}>
+                        &lt;&nbsp;Leave
+                    </div>
+                    <div className='title'>PRECARITY</div>
+                    <div className='game-name'>{game.name}</div>
+                </div>
                 <div id='scoreboard'>
                     {game.players.map(gplayer =>
                         <Player
@@ -62,14 +60,18 @@ export const Game = ({ game, player, updater, closeListener }) => {
                             me={player.id === (gplayer.id || gplayer)}
                         />
                     )}
-                    <div id='double-indicator'
-                        className={game.double ? 'active' : ''}
-                        onClick={toggleDouble.bind(null, game.id, !game.double)}
-                    >
-                        {game.double ? '2x' : '1x'}
-                    </div>
                 </div>
-
+                <div id='double-indicator'
+                    className={game.double ? 'active' : ''}
+                    onClick={toggleDouble.bind(null, game.id, !game.double)}
+                >
+                    {game.double ? '2x' : '1x'}
+                </div>
+                <ScoreController
+                    player={player}
+                    double={game.double}
+                />
+                <Version />
             </div>
         </div>
     )
