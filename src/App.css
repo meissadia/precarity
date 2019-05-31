@@ -175,8 +175,21 @@ button,
     font-size: 2em;
 }
 
+.player.flashGreen .score,
+.player.flashGreen .indicator {
+    animation-name: flash-green;
+    animation-duration: 1s;
+}
+
+
 #double-indicator.active {
     background: rgb(73, 118, 182);
+}
+
+@keyframes flash-green {
+    from { 
+        color: #4976B6;
+    }
 }
 
 
@@ -188,7 +201,7 @@ button,
     width: 15%;
     border-radius: 20px;
     background: #768ea3;
-    background: rgb(73, 118, 182);
+    background: #4976B6;
 }
 
 #tab-select {
