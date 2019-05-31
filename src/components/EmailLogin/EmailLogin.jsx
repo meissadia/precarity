@@ -4,6 +4,7 @@ import { auth, db } from '../../firebase/index';
 import { TabSelect } from './TabSelect';
 import { Error } from '../Error';
 import { SubmitLogin } from './SubmitLogin';
+import { Version } from '../Version';
 
 /**
  * Email Login Controller
@@ -134,7 +135,7 @@ export class EmailLogin extends React.Component {
                     />
                 </div>
                 <Error error={error} />
-                <div id='version'>Version 0.1.0</div>
+                <Version />
             </form >
         );
     };

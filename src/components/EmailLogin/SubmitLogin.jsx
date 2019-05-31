@@ -20,7 +20,7 @@ export const SubmitLogin = ({ section, functions, enabled }) => {
     }
     ;
     return (
-        <button onClick={onSignUp}
+        <button tabIndex='0' onClick={onSignUp}
             className={class_name}
             disabled={!enabled}
             type='submit'>

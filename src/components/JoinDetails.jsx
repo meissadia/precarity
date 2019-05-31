@@ -32,11 +32,13 @@ export const JoinDetails = props => {
 
   const { error, player, signOut } = props;
 
+  // FIXME: Enable submit form using <ENTER> for accessibility
   return (
     <form id='join-details'>
       <h1 className='title'>Precarity</h1>
       <Welcome player={player} />
-      <input name='name'
+      <input id='join-input'
+        name='name'
         type='text'
         onChange={changeHandler}
         placeholder='Game Name'

@@ -26,12 +26,14 @@ export const TabSelect = props => {
             return section;
         return [section, 'active'].join(' ');
     };
-    return (<div id='tab-select'>
-        <div onClick={toggleSelected} className={classNamer(props.selected, 'login')}>
-            Login
+    return (
+        <div id='tab-select'>
+            <div tabIndex='0' onClick={toggleSelected} className={classNamer(props.selected, 'login')}>
+                Login
             </div>
-        <div onClick={toggleSelected} className={classNamer(props.selected, 'signup')}>
-            Signup
+            <div tabIndex='0' onClick={toggleSelected} className={classNamer(props.selected, 'signup')}>
+                Signup
             </div>
-    </div>);
+        </div>
+    );
 };

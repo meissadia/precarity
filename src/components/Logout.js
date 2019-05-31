@@ -7,7 +7,7 @@ export const Logout = props => {
     return <div className='logout'>Loading...</div>
 
   return (
-    <div className='logout' onClick={click}>
+    <div tabIndex='0' className='logout' onClick={click}>
       <span className='button'>Logout</span>
     </div>
   );

@@ -55,7 +55,7 @@ export const Game = ({ game, player, updater, closeListener }) => {
                     double={game.double}
                 />
                 <div id='scoreboard'>
-                    {game.players && game.players.map(gplayer =>
+                    {game.players.map(gplayer =>
                         <Player
                             key={`${gplayer.id || gplayer}`}
                             player={gplayer}

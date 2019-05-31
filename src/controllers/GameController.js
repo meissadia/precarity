@@ -1,4 +1,3 @@
-import { db } from '../firebase/index';
 import { db as fdb } from '../firebase/firebase';
 
 /**
@@ -17,41 +16,10 @@ class GameController {
     }
 
     /* Toggle Double flag for Game */
-    /* FIXME: refactor as updateMultiplier? */
+    /* TODO: New feature: updateMultiplier? */
     static toggleDouble(gameId, double) {
         if (!gameId) return;
         fdb.collection('games').doc(gameId).update({ double })
-    }
-
-    /* Initiate and join a game */
-    newGame(args) {
-        this.cleanup();
-
-        return db.doCreateGame({                                // Create a new game in the DB
-            players: args.players,
-            name: args.name,
-        })
-            .then(status => {
-                if (status.success) {
-                    const closeGameListener =
-                        fdb.collection('games').doc(status.id).onSnapshot(doc => {           // Subscribe to game updates
-                            const game = { ...doc.data(), id: doc.id };
-                            const error = null;
-                            this.update({                   // Cache current game data
-                                game,
-                                error,
-                                showingNewDetails: false,
-                            });
-
-                            // NOTE: 
-                            //  Tried to resolve players here but it led to glitchy behavior
-                            //  where app state was inconsistent and wouldn't update as expected.  
-                        });
-
-                    return { success: true, closer: closeGameListener };
-                }
-                return { success: false, error: status.error }
-            })
     }
 
     /* Join an in-progress Game */
