@@ -4,7 +4,7 @@ export const Logout = props => {
   const { click } = props;
   return (
     <button className='logout' onClick={click}>
-      <span className='button'>Delete Account</span>
+      <span className='button'>Signout</span>
     </button>
   );
 };
