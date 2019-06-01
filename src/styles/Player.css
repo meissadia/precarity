@@ -1,0 +1,42 @@
+.player {
+    width: 30%;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    margin: 5px auto;
+    box-sizing: border-box;
+}
+
+.player .score { font-size: 2em }
+
+.player .indicator {
+    color: transparent;
+    font-size: 1.5em;
+}
+
+.player .name {
+    margin: 10px auto;
+    padding-bottom: 7px;
+    border-bottom: 1px solid grey;
+}
+
+.player.me .indicator {
+    color: #d4c128;
+}
+
+.player.me .name {
+    border-bottom: 1px solid #d4c128;
+}
+
+.player.flashGreen .score,
+.player.flashGreen .indicator {
+    animation-name: flash-green;
+    animation-duration: 1s;
+    transition: color 1s;
+}
+
+@keyframes flash-green {
+    from { 
+        color: #4976B6;
+        transform: rotateX(360deg);
+    }
+}

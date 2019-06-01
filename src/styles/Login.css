@@ -1,0 +1,99 @@
+#login {
+    width: 100%;
+    height: 100vh;
+    background: #276573;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#login .inputs {
+    display: flex;
+    flex-flow: column nowrap;
+    background: inherit;
+    border-radius: inherit;
+}
+
+#login .inputs button { 
+    text-transform: uppercase;
+    background: #3DA6C0;
+ }
+
+#login .inputs input,
+#login .inputs button {
+    box-sizing: border-box;
+    width: 80vw;
+    margin: 10px auto;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 1em;
+    border: 0;
+    color: white;
+}
+
+@media screen and (min-width: 768px){
+    #login .inputs input,
+    #login .inputs button {
+        width: 50vw;
+    }
+}
+
+@media screen and (min-width: 1224px){
+    #login .inputs input,
+    #login .inputs button{
+        width: 30vw;
+    }
+
+}
+
+#login .inputs input {
+    background: none;
+    border-bottom: 2px solid white;
+    border-radius: 0;
+}
+
+#login .inputs input::placeholder {
+    color: lightgrey;
+}
+
+#login .signup input:focus {
+    border-bottom: 2px solid #49C6E5;
+}
+
+#login h2 {
+    text-transform: uppercase;
+    color: white;
+}
+
+#login #errors {
+    background: inherit;
+    border-radius: inherit;
+    color: white;
+    padding: 10px 0;
+}
+
+#login .inputs button.disabled,
+#login .inputs button.disabled:hover {
+    background: grey ;
+    cursor: not-allowed;
+}
+
+#login .signup input.valid {
+    border-bottom: 2px solid #49C6E5 !important;
+}
+
+#login .signup input.invalid:focus {
+    border-bottom: 2px solid grey !important;
+}
+
+@media (hover: hover) {
+    #login button:hover:not(.disabled) {
+        background: #49C6E5;
+        cursor: pointer;
+        transform: scaleX(1.1) scaleY(1.1);
+    }
+}

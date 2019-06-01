@@ -1,28 +1,17 @@
 import React, { useState } from 'react';
-import { Logout } from './Logout';
-import { Version } from './Version';
-import Error from './Error';
+import { Logout } from '../components/Logout';
+import { Version } from '../components/Version';
+import Error from '../components/Error';
+import '../styles/JoinDetails.css';
 
 const Welcome = ({ player }) => {
-  if (!player) return <h2>Loading...</h2>
-  return <h2>Welcome, {player.name}!</h2>
+  return (
+    <h2 className='welcome'>
+      {player ? `Welcome, ${player.name}!` : `Loading...`}
+    </h2>
+  )
 }
 
-/**
- * Color scheme
- * DEEP PURPLE
- * #320E3B
- * AFRICAN VIOLET
- * #9F84BD
- * PAYNE'S GREY
- * #546A7B
- * MOCCASIN
- * #F9EBE0
- * CYAN CORNFLOWER BLUE
- * #208AAE
- * OXFORD BLUE
- * #0D2149
- *  */
 export const JoinDetails = props => {
   const [name, setName] = useState(null);
   const joiner = props.joinGame.bind(null, name);
@@ -34,7 +23,6 @@ export const JoinDetails = props => {
 
   const { error, player, signOut } = props;
 
-  // FIXME: Enable submit form using <ENTER> for accessibility
   return (
     <form id='join-details'>
       <h1 className='title'>Precarity</h1>

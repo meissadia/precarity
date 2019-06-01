@@ -1,0 +1,108 @@
+
+#join-details {
+    width: 100%;
+    height: 100vh;
+    background: rgb(89, 17, 17);
+    color: white;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+#join-details .title {
+    font-size: 2em;
+    color: white;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue", sans-serif;
+    text-align: center;
+}
+
+#join-details .welcome {
+    text-align: center;
+    margin-bottom: 5vh;
+}
+
+#join-details input {
+    width: 40%;
+    margin: 0 auto;
+    font-size: 1em;
+    border-radius: 0;
+    border: 0;
+    padding: 10px 5px;
+    text-align: center;
+    box-sizing: border-box;
+    background: none;
+    border-bottom: 2px solid white;
+    color: white;
+    font-size: 1.5em;
+}
+
+#join-details input::placeholder {
+    color: lightgrey;
+}
+
+#join-details input:focus {
+    border-bottom: 2px solid #24c136;
+}
+
+#join-details .actions {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1vh;
+    min-width: 40%;
+    margin: 5px auto;
+}
+
+#join-details .actions button,
+#join-details .actions > div {
+    width: 100%;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: black;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    margin-top: 2vh;
+    cursor: pointer;
+    font-weight: 500;
+    border: 0;
+    box-sizing: border-box;
+}
+
+#join-details .actions .join {
+    color: #F9EBE0;
+    background: #208AAE;
+}
+
+#join-details .actions .logout {
+    background: #546A7B;
+    color: #F9EBE0;
+    text-shadow: 2px 1px 3px #F9EBE0 inset;
+    white-space: nowrap;
+}
+
+#join-details {
+    background: #0D2149;
+}
+
+#join-details #join-input:focus {
+    border-bottom: 2px solid #208AAE;
+}
+
+
+#join-details .actions button:hover,
+#join-details .actions button:focus {
+    background: rgb(35, 173, 182);
+    transform: scaleX(1.1) scaleY(1.1);
+    outline: none;
+}
+
+#join-details .actions .logout:hover,
+#join-details .actions .logout:focus {
+    background: #320E3B;
+    color: #F9EBE0;
+    transform: scaleX(1.1) scaleY(1.1);
+    outline: none;
+}

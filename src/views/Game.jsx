@@ -1,12 +1,39 @@
 import React from 'react';
-import Player from './Player';
-import { ScoreController } from './ScoreController';
+import Player from '../components/Player';
+import { ScoreController } from '../components/ScoreController';
 import GameController from '../controllers/GameController';
 import { db } from '../firebase/firebase';
-import { Version } from './Version';
+import { Version } from '../components/Version';
 
 import '../styles/GameBar.css';
+import '../styles/Player.css';
 
+
+export const GameBar = ({ gameName, back }) => {
+    return (
+        <div id='game-bar'>
+            <button className='back link' onClick={back}>
+                &lt;&nbsp;Leave
+            </button>
+            <div className='title'>PRECARITY</div>
+            <div className='game-name'>{gameName}</div>
+        </div>
+    )
+}
+
+export const Scoreboard = ({ players, selfId }) => {
+    return (
+        <div id='scoreboard'>
+            {players.map(gplayer =>
+                <Player
+                    key={`${gplayer.id || gplayer}`}
+                    player={gplayer}
+                    me={selfId === (gplayer.id || gplayer)}
+                />
+            )}
+        </div>
+    )
+}
 /**
  * Display Scoreboard and Score controls
  */
@@ -56,22 +83,8 @@ export const Game = ({ game, player, updater, closeListener }) => {
     return (
         <div className="App">
             <div id='currentGame'>
-                <div id='game-bar'>
-                    <button className='back link' onClick={goBack}>
-                        &lt;&nbsp;Leave
-                    </button>
-                    <div className='title'>PRECARITY</div>
-                    <div className='game-name'>{game.name}</div>
-                </div>
-                <div id='scoreboard'>
-                    {game.players.map(gplayer =>
-                        <Player
-                            key={`${gplayer.id || gplayer}`}
-                            player={gplayer}
-                            me={player.id === (gplayer.id || gplayer)}
-                        />
-                    )}
-                </div>
+                <GameBar back={goBack} gameName={game.name} />
+                <Scoreboard players={game.players} selfId={player.id} />
                 <div id='double-indicator'
                     className={game.double ? 'active' : ''}
                     onClick={toggleDouble.bind(null, game.id, !game.double)}

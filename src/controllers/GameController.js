@@ -24,8 +24,6 @@ class GameController {
 
     /* Join an in-progress Game */
     joinGame(gameId, playerId) {
-        this.cleanup();
-
         // Returns a Promise
         // Add own ID to game's player list
         return fdb.collection('games').doc(gameId).get().then(doc => {
@@ -75,14 +73,6 @@ class GameController {
             return { success: true, closer: closeGameListener };
         });
 
-    }
-
-    /* Unregister Event Listeners */
-    cleanup() {
-        if (this.closeGameListener) {
-            this.closeGameListener();
-            this.closeGameListener = null;
-        }
     }
 }
 

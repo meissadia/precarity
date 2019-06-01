@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { auth, db } from '../firebase/firebase';
-import Error from './Error';
-import Version from './Version';
+import Error from '../components/Error';
+import Version from '../components/Version';
+import '../styles/Login.css';
 
 const Login = props => {
     const [name, setName] = useState('');
