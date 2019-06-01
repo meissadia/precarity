@@ -54,7 +54,6 @@ class App extends React.Component {
 
     if (!isEqual(prevUid, authUser.uid)) {
       /* Load player data */
-      console.log(fauth);
       this.cancelUserListener = fdb.collection('users').doc(authUser.uid)
         .onSnapshot(snap => this.setState({ ...snap.data() }));
     }
@@ -117,12 +116,12 @@ class App extends React.Component {
   signOut = () => {
     fauth.currentUser && fauth.currentUser.delete();
     auth.doSignOut();
-    console.log(fauth);
     fdb.collection('users').doc(this.state.authUser.uid).delete();
     this.setState({
       game: null,
       player: null,
       authUser: null,
+      error: null
     });
   };
 
@@ -131,7 +130,6 @@ class App extends React.Component {
   render() {
     const { player, game, authUser, error } = this.state;
     const { clearKey, joinGame } = this;
-
     if (!authUser)
       return <Login />;
 

@@ -100,21 +100,26 @@ button,
 #game-bar {
     box-sizing: content-box;
     width: 100%;
-    padding: 10px 0 20px 0;
+    padding: 20px 0 25px 0;
     color: white;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     font-size: 1.2em;
-    height: 20px;
     text-transform: uppercase;
     font-weight: 500;
     border-bottom: 3px solid #768ea3;
 }
 
-#game-bar div {
+#game-bar div,
+#game-bar button {
     width: 30%;
     box-sizing: border-box;
+    background: transparent;
+    color: white;
+    font-size: inherit;
+    border: 0;
+    font-weight: 500;
 }
 
 #game-bar .game-name {
@@ -126,10 +131,15 @@ button,
     cursor: pointer;
 }
 
+#game-bar .link:hover,
+#game-bar .link:focus {
+    letter-spacing: 5px;
+    font-weight: 3  00;
+}
+
 #game-bar .title {
     font-size: 1.2em;
 }
-
 
 #scoreboard {
     display: flex;
@@ -179,6 +189,7 @@ button,
 .player.flashGreen .indicator {
     animation-name: flash-green;
     animation-duration: 1s;
+    transition: color 1s;
 }
 
 
@@ -189,6 +200,7 @@ button,
 @keyframes flash-green {
     from { 
         color: #4976B6;
+        transform: rotateX(360deg);
     }
 }
 
@@ -318,8 +330,8 @@ button,
     background: #24c136;
 }
 
-#login button.signup {
-    background: #49C6E5;
+#login button {
+    background: #3DA6C0;
 }
 
 #login #errors {
@@ -345,17 +357,16 @@ button,
     border-bottom: 2px solid #49C6E5 !important;
 }
 
-#app-error-bar {
+#errors {
     padding: 20px 0;
-    background: #c18a00;
+    background: #a7780a;
     color: white;
     font-size: 1em;
     box-sizing: border-box;
-    width: 25%;
     text-align: center;
     border-radius: 10px;
     margin: 15px auto;
-    padding: 10px;
+    padding: 20px;
 }
 
 #join-details .title {
@@ -411,11 +422,13 @@ button,
     justify-content: space-around;
     align-items: center;
     margin-top: 1vh;
+    min-width: 40%;
+    margin: 5px auto;
 }
 
 #join-details .actions button,
 #join-details .actions > div {
-    width: 40%;
+    width: 100%;
     color: white;
     padding: 10px 20px;
     border-radius: 20px;
@@ -430,14 +443,15 @@ button,
 }
 
 #join-details .actions .join {
-    background: #F9EBE0;
-    color: #208AAE;
+    color: #F9EBE0;
+    background: #208AAE;
 }
 
 #join-details .actions .logout {
     background: #546A7B;
     color: #F9EBE0;
     text-shadow: 2px 1px 3px #F9EBE0 inset;
+    white-space: nowrap;
 }
 
 #join-details {
@@ -449,6 +463,21 @@ button,
 }
 
 input:focus {
+    outline: none;
+}
+
+#join-details .actions button:hover,
+#join-details .actions button:focus {
+    background: rgb(35, 173, 182);
+    transform: scaleX(1.1) scaleY(1.1);
+    outline: none;
+}
+
+#join-details .actions .logout:hover,
+#join-details .actions .logout:focus {
+    background: #320E3B;
+    color: #F9EBE0;
+    transform: scaleX(1.1) scaleY(1.1);
     outline: none;
 }
 
@@ -466,16 +495,12 @@ input:focus {
     #tab-select div.login:hover {
         border-bottom: 5px solid #24c136
     }
-    #login button:hover {
-        background: orange;
+    #login button:hover:not(.disabled) {
+        background: #49C6E5;
         cursor: pointer;
+        transform: scaleX(1.1) scaleY(1.1);
     }
-    #login button.login:hover {
-        background: #0a7d18;
-    }
-    #login button.signup:hover {
-        background: #0f4493;
-    }
+
     .score-button:hover {
         background: rgb(73, 118, 182);
         cursor: pointer;
@@ -483,18 +508,7 @@ input:focus {
     .score-button.reset:hover {
         background: grey;
     }
-    #join-details .actions button.join:hover {
-        color: #F9EBE0;
-        background: #208AAE;
-    }
-    #join-details .actions .logout:hover {
-        background: #320E3B;
-        color: #F9EBE0;
-    }
-    #game-bar .link:hover {
-        letter-spacing: 5px;
-        font-weight: 500;
-    }
+
     #double-indicator.active:hover {
         background: #768ea3;
     }
@@ -506,4 +520,8 @@ input:focus {
     font-size: .5em;
     margin-top: 10px;
     text-align: center;
+}
+
+*:focus {
+    outline: none;
 }

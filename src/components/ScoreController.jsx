@@ -69,6 +69,7 @@ export const ScoreController = props => {
                 <ResetScoreButton
                     player={player}
                     value={-player.score}
+                    gameName={gameName}
                     label='Clear'
                     className='reset'
                 />

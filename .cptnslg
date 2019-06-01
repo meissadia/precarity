@@ -14,3 +14,21 @@ Clear state on Logout
 Refactor and beautify
 
 Save/rehydrate state with localStorage
+
+May 31, 2019
+
+* Only do anonymous
+    - Save authUser.user.uid to state && localStorage
+    - Enable change Name
+    - Change LOGOUT to DELETE ACCOUNT
+    - LOGIN error - Sorry, we've reached our New User limit for the day! Please try again tomorrow
+
+1. App loads with a Welcome to Precarity screen
+2. If there is a localStorage.get('deviceId') //authUser.user.uid
+    a. Use it
+        I. on failure, clear localStorage.delete('authUser')
+    b. Show What's your name?/ Let's Go
+        I. on success save authUser to localStorage
+3. On DELETE ACCOUNT
+    I. delete account from firebase
+    II. clear localStorage.delete('authUser')

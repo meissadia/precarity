@@ -39,6 +39,7 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.1",
     "firebase-tools": "^6.10.0",
-    "serve": "^11.0.0"
+    "serve": "^11.0.0",
+    "surge": "^0.21.0"
   }
 }

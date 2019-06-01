@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { auth, db } from '../firebase/firebase';
 import Error from './Error';
+import Version from './Version';
 
 const Login = props => {
     const [name, setName] = useState('');
@@ -48,6 +49,7 @@ const Login = props => {
                     Let's Go!
                 </button>
                 <Error error={error} />
+                <Version />
             </div>
         </form>
     );

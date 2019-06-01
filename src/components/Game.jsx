@@ -55,9 +55,9 @@ export const Game = ({ game, player, updater, closeListener }) => {
         <div className="App">
             <div id='currentGame'>
                 <div id='game-bar'>
-                    <div className='back link' onClick={goBack}>
+                    <button className='back link' onClick={goBack}>
                         &lt;&nbsp;Leave
-                    </div>
+                    </button>
                     <div className='title'>PRECARITY</div>
                     <div className='game-name'>{game.name}</div>
                 </div>
