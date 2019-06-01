@@ -4,11 +4,11 @@ import { get, isEqual } from 'lodash';
 import { randomOrName } from './lib/randomOrName';
 import GameController from './controllers/GameController';
 import Game from './components/Game';
-import { EmailLogin } from './components/EmailLogin/EmailLogin';
+import Login from './components/Login';
 import { JoinDetails } from './components/JoinDetails';
 
 import { auth } from './firebase/index';
-import { db as fdb } from './firebase/firebase';
+import { db as fdb, auth as fauth } from './firebase/firebase';
 import { firebase } from './firebase';
 
 import './App.css';
@@ -42,10 +42,11 @@ class App extends React.Component {
 
     // Promise with unregister function for game listener
     this.gameListener && this.gameListener.then(closer => closer && closer());
+    this.signOut();
   }
 
   componentDidUpdate(_prevProps, prevState) {
-    const { authUser } = this.state;
+    const { authUser, player, game } = this.state;
 
     if (!authUser) return true;
 
@@ -53,8 +54,31 @@ class App extends React.Component {
 
     if (!isEqual(prevUid, authUser.uid)) {
       /* Load player data */
+      console.log(fauth);
       this.cancelUserListener = fdb.collection('users').doc(authUser.uid)
         .onSnapshot(snap => this.setState({ ...snap.data() }));
+    }
+
+    if (!player) return;
+
+    const gname = player.game;
+
+    if (gname && !game) {
+      this.gameController.joinGame(
+        gname,
+        authUser.uid
+      ).then(result => {
+        if (result.success) {
+          this.gameListener = result.closer;
+          return;
+        };
+
+        const { error } = result;
+        const game = null;
+
+        // Unable to join. Clear current game
+        this.setState({ game, error });
+      })
     }
   }
 
@@ -91,13 +115,16 @@ class App extends React.Component {
   }
 
   signOut = () => {
+    fauth.currentUser && fauth.currentUser.delete();
     auth.doSignOut();
+    console.log(fauth);
+    fdb.collection('users').doc(this.state.authUser.uid).delete();
     this.setState({
       game: null,
       player: null,
       authUser: null,
-    })
-  }
+    });
+  };
 
   clearKey = key => this.setState({ [key]: null });
 
@@ -106,7 +133,7 @@ class App extends React.Component {
     const { clearKey, joinGame } = this;
 
     if (!authUser)
-      return <EmailLogin update={this.setState} />;
+      return <Login />;
 
     if (game && player)
       return <Game

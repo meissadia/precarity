@@ -38,10 +38,12 @@ export class Player extends React.Component {
         if (this.state.updated) {
             setTimeout(() => {
                 const element = document.getElementById(this.state.player.id);
-                let cname = element.getAttribute('class');
-                cname = cname.replace('flashGreen', '');
-                element.setAttribute('class', cname);
-                this.setState({ updated: false });
+                if (element) {
+                    let cname = element.getAttribute('class');
+                    cname = cname.replace('flashGreen', '');
+                    element.setAttribute('class', cname);
+                    this.setState({ updated: false });
+                }
             }, 1000);
         }
     };

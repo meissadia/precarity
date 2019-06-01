@@ -17,7 +17,16 @@ export const Game = ({ game, player, updater, closeListener }) => {
 
     /* Return to Join Game */
     const goBack = () => {
+
         db.collection('games').doc(game.name).get().then(doc => {
+            db.collection('users').doc(player.id).set({
+                player: {
+                    ...player,
+                    game: null,
+                    score: 0,
+                }
+            });
+            if (!doc.exists) return null;
             const data = doc.data();
 
             // Remove self from player list
@@ -70,6 +79,7 @@ export const Game = ({ game, player, updater, closeListener }) => {
                 <ScoreController
                     player={player}
                     double={game.double}
+                    gameName={game.name}
                 />
                 <Version />
             </div>

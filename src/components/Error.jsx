@@ -4,9 +4,13 @@ import React from 'react';
  * @param {String} props.error Error to display
  */
 export const Error = ({ error }) => {
-    if (!error)
-        return null;
-    return (<div id='errors'>
-        {error}
-    </div>);
+    if (!error) return null;
+
+    return (
+        <div id='errors'>
+            {error}
+        </div>
+    );
 };
+
+export default Error;

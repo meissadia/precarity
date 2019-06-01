@@ -4,7 +4,7 @@ import { db } from '../firebase/firebase';
 const DEFAULT_SCORES = [200, 400, 600, 800, 1000];
 
 export const ScoreButton = props => {
-    const { player, value } = props;
+    const { player, value, gameName } = props;
 
     const updateScore = () => {
         const { id, name, score } = player;
@@ -13,6 +13,7 @@ export const ScoreButton = props => {
                 id,
                 name,
                 score: score + value,
+                game: gameName,
             }
         }).catch(err => console.log('Failed to addScore', err))
     }
@@ -34,7 +35,7 @@ export const ScoreController = props => {
         window && window.scrollTo(0, 0);
     })
 
-    const { player, double } = props;
+    const { player, double, gameName } = props;
 
     if (!player) return null;
 
@@ -54,6 +55,7 @@ export const ScoreController = props => {
                     key={val}
                     player={props.player}
                     value={val}
+                    gameName={gameName}
                 />
             )}
             {props.children}
