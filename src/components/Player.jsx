@@ -15,6 +15,7 @@ export class Player extends React.Component {
                 id: props.player
             },
         };
+        this.timers = [];
     };
 
     componentDidUpdate(prevProps, prevState) {
@@ -36,7 +37,7 @@ export class Player extends React.Component {
 
         /* Not updated, remove updated flag and animation class */
         if (this.state.updated) {
-            setTimeout(() => {
+            const t = setTimeout(() => {
                 const element = document.getElementById(this.state.player.id);
                 if (element) {
                     let cname = element.getAttribute('class');
@@ -45,6 +46,7 @@ export class Player extends React.Component {
                     this.setState({ updated: false });
                 }
             }, 1000);
+            this.timers.push(t);
         }
     };
 
@@ -57,6 +59,8 @@ export class Player extends React.Component {
 
     componentWillUnmount() {
         this.unlisten();
+        this.timers.forEach(t => clearTimeout(t));
+        this.timers = [];
     };
 
     render() {

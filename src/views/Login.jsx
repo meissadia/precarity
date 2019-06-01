@@ -32,7 +32,7 @@ const Login = props => {
 
     return (
         <form id='login' >
-            <h2>Precarity</h2>
+            <h2 className='title'>Precarity</h2>
             <div className={['inputs', 'signup'].join(' ')}>
                 <input required
                     name='name'

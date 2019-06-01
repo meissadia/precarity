@@ -32,3 +32,12 @@ May 31, 2019
 3. On DELETE ACCOUNT
     I. delete account from firebase
     II. clear localStorage.delete('authUser')
+
+June 1, 2019
+
+* Don't autologin to game, simply autofill last-participated game in the Game Name.
+* getDerivedStateFromProps() might be useful in fixing some of these 'updating unrendered component' warnings.
+* have precarity.surge.sh then app.precarity.surge.sh
+    - Have 1 redirect to other
+    - might be able to avoid serviceWorker issues this way
+    

@@ -29,6 +29,11 @@
     text-transform: none;
 }
 
+#game-bar .title {
+    font-family: 'Shadows Into Light Two', "Helvetica Neue", sans-serif, cursive;
+    font-weight: 600;
+}
+
 #game-bar .link {
     cursor: pointer;
     text-transform: uppercase;

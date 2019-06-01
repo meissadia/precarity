@@ -64,9 +64,10 @@
     border-bottom: 2px solid #49C6E5;
 }
 
-#login h2 {
+#login .title {
     text-transform: uppercase;
     color: white;
+    font-family: 'Shadows Into Light Two', "Helvetica Neue", sans-serif, cursive;
 }
 
 #login #errors {
