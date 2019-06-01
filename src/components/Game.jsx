@@ -5,6 +5,8 @@ import GameController from '../controllers/GameController';
 import { db } from '../firebase/firebase';
 import { Version } from './Version';
 
+import '../styles/GameBar.css';
+
 /**
  * Display Scoreboard and Score controls
  */

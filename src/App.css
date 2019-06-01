@@ -111,36 +111,6 @@ button,
     border-bottom: 3px solid #768ea3;
 }
 
-#game-bar div,
-#game-bar button {
-    width: 30%;
-    box-sizing: border-box;
-    background: transparent;
-    color: white;
-    font-size: inherit;
-    border: 0;
-    font-weight: 500;
-}
-
-#game-bar .game-name {
-    user-select: text;
-    text-transform: none;
-}
-
-#game-bar .link {
-    cursor: pointer;
-}
-
-#game-bar .link:hover,
-#game-bar .link:focus {
-    letter-spacing: 5px;
-    font-weight: 3  00;
-}
-
-#game-bar .title {
-    font-size: 1.2em;
-}
-
 #scoreboard {
     display: flex;
     flex-flow: row nowrap;
