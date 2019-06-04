@@ -1,10 +1,13 @@
 # PRECARITY  
 
-Precarity is a real-time Jeopardy scoring tracker.  
-Connect up to 3 players at a time.
-No sign-up required!  
+A cross-platform, real-time Jeopardy scoring tracker.  
+ * Connect up to 3 players!   
+ * No sign-up required!  
+ * Works offline for individual play!  
+  
+[Play Now](https://precarity.surge.sh)
 
-<a href='https://precarity.surge.sh' 
-    style='width:50%; margin: 10px auto; background: green; color: white; padding: 20px; border-radius: 10px; text-decoration: none;'>
-    Play Now
-</a>
+<img src='./screenshots/sc0.PNG' style='width: 30%; display: inline-block' alt='signin' />
+<img src='./screenshots/sc1.PNG' style='width: 30%; display: inline-block' alt='dashboard' />
+<img src='./screenshots/sc2.PNG' style='width: 30%; display: inline-block' alt='game' />
+  
