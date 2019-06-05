@@ -2,8 +2,8 @@ import React from 'react';
 import Player from '../components/Player';
 import { ScoreController } from '../components/ScoreController';
 import GameController from '../controllers/GameController';
-import { db } from '../firebase/firebase';
 import { Version } from '../components/Version';
+import { dbResetUser, dbLeaveGame } from '../firebase/db';
 
 import '../styles/GameBar.css';
 import '../styles/Player.css';
@@ -37,69 +37,60 @@ export const Scoreboard = ({ players, selfId }) => {
 /**
  * Display Scoreboard and Score controls
  */
-export const Game = ({ game, player, updater, closeListener }) => {
-    if (!game) return null;
-    if (!game.players || game.players.length === 0) return null;
-    if (!game.players.includes(player.id)) return null;
-
-    const toggleDouble = GameController.toggleDouble;
+export class Game extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            players: props.game && props.game.players
+        }
+    }
 
     /* Return to Join Game */
-    const goBack = () => {
+    goBack = () => {
+        const { player, game, closeListener, updater } = this.props;
 
-        db.collection('games').doc(game.name).get().then(doc => {
-            db.collection('users').doc(player.id).set({
-                player: {
-                    ...player,
-                    game: null,
-                    score: 0,
-                }
-            });
-            if (!doc.exists) return null;
-            const data = doc.data();
-
-            // Remove self from player list
-            const newPlayerList = data.players.filter(p => p !== player.id);
-
-            /* Delete the game when there are no players active */
-            if (newPlayerList.length === 0) {
-                return db.collection('games').doc(game.name).delete().then(() => {
-                    closeListener && closeListener();
-                    updater({ game: null });
-                });
-            }
-
-            /* Update the game's player list */
-            db.collection('games').doc(game.name).set({
-                ...data,
-                players: newPlayerList,
-            }).then(() => {
+        dbResetUser(player).then(() => {
+            dbLeaveGame(player, game).then(result => {
                 closeListener && closeListener();   // Stop following game updates
-                updater({ game: null });            // Clear local game data
-            })
+                updater({
+                    game: null,             // Clear local game data
+                    error: result.error,    // Display any server error, though maybe we can just log these instead of display them
+                });
+            });
         });
     }
 
-    return (
-        <div className="App">
-            <div id='currentGame'>
-                <GameBar back={goBack} gameName={game.name} />
-                <Scoreboard players={game.players} selfId={player.id} />
-                <div id='double-indicator'
-                    className={game.double ? 'active' : ''}
-                    onClick={toggleDouble.bind(null, game.id, !game.double)}
-                >
-                    {game.double ? '2x' : '1x'}
+    render() {
+        const { game, player } = this.props;
+
+        if (!game) return null;
+        if (!game.players || game.players.length === 0) return null;
+        if (!game.players.includes(player.id)) return null;
+
+        const toggleDouble = GameController.toggleDouble.bind(null, game.id, !game.double);
+
+        return (
+            <div className="App">
+                <div id='currentGame'>
+                    <GameBar back={this.goBack} gameName={game.name} />
+                    <Scoreboard players={game.players} selfId={player.id} />
+                    <div id='double-indicator'
+                        className={game.double ? 'active' : ''}
+                        onClick={toggleDouble}
+                    >
+                        {game.double ? '2x' : '1x'}
+                    </div>
+                    <ScoreController
+                        player={player}
+                        double={game.double}
+                        gameName={game.name}
+                    />
+                    <Version />
                 </div>
-                <ScoreController
-                    player={player}
-                    double={game.double}
-                    gameName={game.name}
-                />
-                <Version />
             </div>
-        </div>
-    )
+        )
+    }
+
 }
 
 export default Game;
