@@ -1,4 +1,5 @@
 import { db as fdb } from '../firebase/firebase';
+import { userDocRef } from '../firebase/db';
 
 /**
  * Firebase Connected Game Controller
@@ -24,6 +25,20 @@ class GameController {
 
     /* Join an in-progress Game */
     joinGame(gameId, playerId) {
+
+        const playerRef = userDocRef(playerId);
+        playerRef.get().then(doc => {
+            const data = doc.data();
+            if (data) {
+                const playerData = data.player;
+                playerRef.set({
+                    player: {
+                        ...playerData,
+                        leaving: false, /* Clear leaving state */
+                    }
+                })
+            }
+        })
         // Returns a Promise
         // Add own ID to game's player list
         return fdb.collection('games').doc(gameId).get().then(doc => {

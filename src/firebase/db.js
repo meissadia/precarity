@@ -12,7 +12,7 @@ export const doCreateUser = (id, email, extraState = {}) =>
   });
 
 
-export const doGetUser = id => db.collection("users").doc(id).get();
+export const userDocRef = id => db.collection("users").doc(id);
 
 export const doCreateGame = args => {
   const name = args.name || randomName();
@@ -50,9 +50,34 @@ export const dbResetUser = player => {
   });
 };
 
-export const dbLeaveGame = (player, game) => {
+const dbPlayerLeaving = player => {
+  const playerRef = userDocRef(player.id);
+
+  playerRef.get().then(doc => {
+    const data = doc.data();
+    if (data) {
+      playerRef.set({
+        player: {
+          ...data.player,
+          leaving: true, /* Set leaving game */
+        }
+      })
+    }
+  }).catch(e => console.log(e.message));
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export const dbLeaveGame = async (player, game) => {
   const docRef = db.collection('games').doc(game.name);
 
+  /* Update Player */
+  dbPlayerLeaving(player);
+  await sleep(500); // Hack to give time for animation to render before the game is updated
+
+  /* Update Game */
   return docRef.get().then(doc => {
     if (!doc.exists) return null;
     const data = doc.data();

@@ -11,6 +11,7 @@ export class Player extends React.Component {
         super(props);
         this.state = {
             updated: false,
+            loading: true,
             player: {
                 id: props.player
             },
@@ -19,6 +20,16 @@ export class Player extends React.Component {
     };
 
     componentDidUpdate(prevProps, prevState) {
+        /* Clear loading State */
+        if (this.state.loading
+            && this.state.player
+            && (this.state.player.score || this.state.player.score === 0)) {
+            this.setState({
+                loading: false
+            });
+            return;
+        }
+
         /* Different Player */
         if (!isEqual(prevState.player.id, this.state.player.id)) {
             this.unlisten();
@@ -70,7 +81,9 @@ export class Player extends React.Component {
             'player',
             this.props.me ? 'me' : null,
             this.state.updated ? 'flashGreen' : null,
-        ].join(' ');
+            this.state.player.leaving ? 'leaving' : null,
+            this.state.loading ? 'loading' : null,
+        ].filter(x => x).join(' ');
 
         return (
             <div id={player.id} className={section_class}>
