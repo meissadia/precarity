@@ -15,10 +15,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "firebase": "firebase",
-    "serve": "firebase serve",
+    "serve": "./node_modules/.bin/serve ./build/",
     "dfb": "npm run build && firebase deploy",
     "surge": "surge ./build/ --domain https://precarity.surge.sh",
-    "ds": "npm run build && npm run surge"
+    "deploy": "npm run surge"
   },
   "eslintConfig": {
     "extends": "react-app"
